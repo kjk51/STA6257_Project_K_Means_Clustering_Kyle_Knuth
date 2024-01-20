@@ -1,7 +1,7 @@
 ---
 title: "K-Means Clustering"
 author: "Kyle Knuth"
-date: '`r Sys.Date()`'
+date: 'today'
 format:
   html:
     code-fold: true
@@ -27,61 +27,38 @@ editor:
 
 This article is about using k means clustering to look for defects on
 imported fruit since it is time consuming to do it manually. The
-researchers’
-goal is to segment an image of a fruit based off color using k-means
-clustering
-to determine if the fruit has “gone bad”. First the authors explain how
-k-means
-clustering works and how it is applied. For example, the data is
-partitioned
-into clusters that have common traits and each cluster has a cluster
-center
-that starts from seed points. Then k-means clustering calculates the
-distance
-between each data point and each cluster center and assigns the data
-point to
-the closest center. In order to apply this to their current research
-question,
-the images of the fruit are used and the pixels are clustered by color
-and
-spatial features. The clustered pixels are then combined to specific
-areas. The
-distribution of the intensity values is calculated and then using ‘k’
-random
-intensities the centroids are set. The image points are clustered by
-distance
-of intensity values to the centroid. A new centroid is then calculated
-and the previous
-two steps are repeated until the labels of the clusters no longer
-change. In
-order to segment the colors of the fruit, an image of the fruit was
-input and transformed
+researchers’ goal is to segment an image of a fruit based off color
+using k-means clustering to determine if the fruit has “gone bad”. First
+the authors explain how k-means clustering works and how it is applied.
+For example, the data is partitioned into clusters that have common
+traits and each cluster has a cluster center that starts from seed
+points. Then k-means clustering calculates the distance between each
+data point and each cluster center and assigns the data point to the
+closest center. In order to apply this to their current research
+question, the images of the fruit are used and the pixels are clustered
+by color and spatial features. The clustered pixels are then combined to
+specific areas. The distribution of the intensity values is calculated
+and then using ‘k’ random intensities the centroids are set. The image
+points are clustered by distance of intensity values to the centroid. A
+new centroid is then calculated and the previous two steps are repeated
+until the labels of the clusters no longer change. In order to segment
+the colors of the fruit, an image of the fruit was input and transformed
 from RGB to L\*a\*b\*. The authors decided to use L\*a\*b\*  because of
 the luminosity option and because all the color info is only in the a
-and b layers. This made segmenting the
-colors easier. The colors were classified in the a\*b\* layers and
-Euclidean
-distance was used to measure difference between colors. Each pixel in
-the image
-was labeled from k-means. K-means then computed the index corresponding
-to each
+and b layers. This made segmenting the colors easier. The colors were
+classified in the a\*b\* layers and Euclidean distance was used to
+measure difference between colors. Each pixel in the image was labeled
+from k-means. K-means then computed the index corresponding to each
 cluster for each pixel and the pixel is labeled with a cluster index.
-Different
-images of the same fruit were then produced based on each cluster. The
-results
-in the paper were very interesting. They were able to very clearly
-separate a
-single image of a fruit into multiple based of the coloring of that
-fruit. For
-example, they used an apple with scab disease and were able to use
-k-means
-clustering to separate out the diseased part of the apple. After some
-brief
-experimentation they decided it was best to separate the images into 3
-or 4
-clusters. Too many or too few would provide a lot of variability in
-detecting
-the “bad” part of the fruit. [@dubey2013infected]
+Different images of the same fruit were then produced based on each
+cluster. The results in the paper were very interesting. They were able
+to very clearly separate a single image of a fruit into multiple based
+of the coloring of that fruit. For example, they used an apple with scab
+disease and were able to use k-means clustering to separate out the
+diseased part of the apple. After some brief experimentation they
+decided it was best to separate the images into 3 or 4 clusters. Too
+many or too few would provide a lot of variability in detecting the
+“bad” part of the fruit. [@dubey2013infected]
 
 #### Article Summary 2
 
