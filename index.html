@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kyle Knuth">
-<meta name="dcterms.date" content="2024-01-19">
+<meta name="dcterms.date" content="2024-01-24">
 
 <title>K-Means Clustering</title>
 <style>
@@ -3080,7 +3080,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 19, 2024</p>
+      <p class="date">January 24, 2024</p>
     </div>
   </div>
   
@@ -3106,6 +3106,15 @@ vertical-align: -.125em;
 <section id="article-summary-2" class="level4">
 <h4 class="anchored" data-anchor-id="article-summary-2">Article Summary 2</h4>
 <p>The goal of the author was to use a more objective method to assess aquifer contamination. The normal method was to use Depth to water table, net Recharge, Aquifer media, Soil media, Topography, Impact of vadose zone and hydraulic Conductivity (DRASTIC). The original problem was that selecting weights for the DRASTIC method was subjective. The author uses k means clustering to create a vulnerability map that doesn’t use fixed weights and uses 4 of the original 7 DRASTIC factors (DRIC). The author chose to do an analysis on an aquifer in Iran and made separate vulnerability maps using DRASTIC and k means clustering. The method of this analysis included creating a vulnerability map with DRASTIC, performing Principal Component Analysis to reduce the number of features, k means clustering was then used to acquire clusters from the new dataset and in turn was used to create a second vulnerability map. Lastly, the water quality of the aquifer was analyzed by collecting samples over the area the aquifer encompassed and both vulnerability maps were statistically compared to the water quality. The author then explains how k means clustering takes an nxd matrix and creates clusters in which data points are assigned. The assignment begins randomly but then is rearranged to where each data point is assigned to the nearest cluster. Using the Davie-Bouldin Index, it was found that the best number of clusters was 5. Using Pearson’s correlation coefficient to compare both vulnerability maps to the actual water quality observations, it was found that the k means clustering method better than the DRASTIC method. The author also found the p-value from Student t-test to show that there was a significant difference. <span class="citation" data-cites="javadi2017classification">(<a href="#ref-javadi2017classification" role="doc-biblioref">Javadi et al. 2017</a>)</span></p>
+</section>
+<section id="article-summary-3" class="level4">
+<h4 class="anchored" data-anchor-id="article-summary-3">Article Summary 3</h4>
+<p>The main goal of the authors is to use k-means clustering on pharmacokinetic parameters to predict chemotherapy response to bladder cancer. K-means clustering was used to alleviate the limitations in analyzing and interpreting the data gained from examining the effectiveness of therapeutic treatments. The data was segmented into clusters based off the distance of each individual data point to the cluster center. They decided to use three clusters and they determined the efficacy of the treatment by observing the changes of the cluster volume from the start of the treatment to the halfway point. They based each cluster off the amplitude and rate of microcirculation in the tumor tissue. Cluster one had a low amplitude and low rate, cluster two had a high amplitude and low rate, and cluster three had a high rate and low amplitude. When comparing the clusters of responders (responsive bladder cancer) and nonresponders (nonresponsive bladder cancer) of the treatment, responders had larger volume reduction in clusters one and three compared to cluster two. In nonresponders, cluster two had a volume increase. By observing the changes in volume, the authors were able to measure the tumor size before and after chemotherapy. They measured the cluster volume fractions before and halfway through treatment and found a 9% change in cluster one, a 17% change in cluster two, and a 5% change in cluster three in responders. In nonrepsonders, there was a 12 % change in cluster one, a 15% change in cluster two, and a 3% change in cluster three. Overall, k-means clustering was able to visualize the tumor from MRI’s as well as show the response of chemotherapy. By using k-means clustering, they were able to use the clusters as biomarkers to identify the effectiveness of chemo as well as an indication of future tumor response to chemotherapy. <span class="citation" data-cites="nguyen2015prediction">(<a href="#ref-nguyen2015prediction" role="doc-biblioref">Nguyen et al. 2015</a>)</span></p>
+</section>
+<section id="article-summary-4" class="level4">
+<h4 class="anchored" data-anchor-id="article-summary-4">Article Summary 4</h4>
+<p>In this article the authors’ wanted to identify patterns of change in skin pores using k-means clustering. Using three-dimensional measurements, the authors’ looked for patterns of how pores change due to age. Their measurements came from 101 Korean women’s cheeks. The skin pores were grouped into five clusters based off the size, density, and elongation of the pores. The pores were segmented by projecting the three-dimensional surface into a two dimensional plane (depth map). The intensities of the pixels corresponds to the z-coordinate. From there the skin pores were segmented. Within each segmentation the area and elongation was computed. The average pore size, pore elongation, and pore densities were used as variables. The Elbow method, which was used to find the best number of clusters in this study, consists of plotting the sum of squared error versus K numbers and wherever the slope plateaus indicated a potential cluster. The pores were clustered into the five groups as follows: a few pores are detected and they are small, the pores are larger and more detectable, the pores are even larger and more detectable, then for the last two clusters the pores increase in size and elongation but become harder to detect. The mean age of the first cluster is 10.1, the mean age of the second cluster is 31.2, the mean age of the third is 35.8, the mean age of the fourth is 48.6, and the mean age of the fifth cluster is 55.8. According to the authors’, the change in pores from clusters one and two may be due to puberty. The results of this study show that pores become larger and more elongated as one ages indicating that pores play a role in the appearance of wrinkles and aging skin.</p>
+<p><span class="citation" data-cites="lee2022identifying">(<a href="#ref-lee2022identifying" role="doc-biblioref">Lee et al. 2022</a>)</span></p>
 </section>
 </section>
 </section>
@@ -3136,6 +3145,12 @@ Dubey, Shiv Ram, Pushkar Dixit, Nishant Singh, and Jay Prakash Gupta. 2013. <spa
 </div>
 <div id="ref-javadi2017classification" class="csl-entry" role="listitem">
 Javadi, S, SM Hashemy, K Mohammadi, KWF Howard, and A Neshat. 2017. <span>“Classification of Aquifer Vulnerability Using k-Means Cluster Analysis.”</span> <em>Journal of Hydrology</em> 549: 27–37.
+</div>
+<div id="ref-lee2022identifying" class="csl-entry" role="listitem">
+Lee, Seongwoo, Marie Cherel, Sarah Gougeon, Euitaek Jeong, Jun-Man LIM, and Sun Gyoo Park. 2022. <span>“Identifying Patterns Behind the Changes in Skin Pores Using 3-Dimensional Measurements and k-Means Clustering.”</span> <em>Skin Research and Technology</em> 28 (1): 3–9.
+</div>
+<div id="ref-nguyen2015prediction" class="csl-entry" role="listitem">
+Nguyen, Huyen T, Guang Jia, Zarine K Shah, Kamal Pohar, Amir Mortazavi, Debra L Zynger, Lai Wei, Xiangyu Yang, Daniel Clark, and Michael V Knopp. 2015. <span>“Prediction of Chemotherapeutic Response in Bladder Cancer Using k-Means Clustering of Dynamic Contrast-Enhanced (DCE)-MRI Pharmacokinetic Parameters.”</span> <em>Journal of Magnetic Resonance Imaging</em> 41 (5): 1374–82.
 </div>
 </div></section></div></main>
 <!-- /main column -->
