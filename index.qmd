@@ -117,7 +117,10 @@ a 3% change in cluster three. Overall, k-means clustering was able to
 visualize the tumor from MRI’s as well as show the response of
 chemotherapy. By using k-means clustering, they were able to use the
 clusters as biomarkers to identify the effectiveness of chemo as well as
-an indication of future tumor response to chemotherapy.
+an indication of future tumor response to chemotherapy. Some limitations
+in this study are that the sample size for nonresponders was small and
+that motion correction wasn’t used in the analysis of the MRI data.
+
 [@nguyen2015prediction]
 
 #### Article Summary 4
@@ -146,7 +149,11 @@ the mean age of the fifth cluster is 55.8. According to the authors’,
 the change in pores from clusters one and two may be due to puberty. The
 results of this study show that pores become larger and more elongated
 as one ages indicating that pores play a role in the appearance of
-wrinkles and aging skin.
+wrinkles and aging skin. Some limitations in this study are that data
+regarding the patients lifestyles or health related conditions that
+might explain the status of their pores was not available and the
+detection of connected pores needed to be improved. The connected pores
+cause significant increases in elongation.
 
 [@lee2022identifying]
 
