@@ -157,6 +157,79 @@ cause significant increases in elongation.
 
 [@lee2022identifying]
 
+#### Article Summary 5
+
+In the article, “K‐means cluster analysis of characteristic patterns of
+allergen in different ages: Real life study” by Zhao et. al., the
+authors’ goal was to use k-means clustering to cluster different age
+groups based off the severity of allergens. They wanted to see the
+relationship age had on potentially reducing the severity of allergens.
+An allergen specific immunoglobulin test was used to test 17 of the most
+common allergens such as dog, cat, penicillin, and shellfish. The
+allergen severity was partitioned into 7 grades with ranges between 0
+and greater than 100 kU/L and each grade was assigned a number from 0 to
+6. The authors then explain that k-means clustering is unsupervised
+machine learning, and it finds similar groups of unlabeled data. In this
+case k-means clustering was used to cluster age groups according to
+allergen sensitivity. Their implementation of k-means clustering
+consisted of randomly extracting k-number of data objects and computing
+the centroids. Then the data is put into clusters by reducing the
+distance of the centroids of each cluster. Finally, the centroids are
+recalculated according to the previous step over and over until the
+clusters come together. The k-means clustering analysis ended up
+creating the following 5 different age groups: 1-17, 18-36, 37-52,
+53-69, and 70-100. Interestingly, the incidence of both atopy and
+aeroallergens decreased as the age increased. It went from 59.79% to
+37.62% from the first age group to the last age group. Concerning food
+allergens, the incidence was all over the place between the age groups
+depending on the specific food. For example, seafood sensitivity was
+increased in older age groups. Another interesting result was that the
+incidence of poly-sensitization decreased with increasing age as well.
+It was also observed that in all age groups, except 37-52, the incidence
+of atopy was higher in males than females. In addition, it was found
+that dust mite sensitization high the highest incidence in patients up
+to age 52.  Some limitations of this study are that the data came from a
+single area and their statistical methods assume that there is a
+cause-effect relationship of the risk factors and atopy. [@zhao2023k]
+
+#### Article Summary 6
+
+In the article “Determining County-Level Counterfactuals for Evaluation
+of Population Health Interventions: A Novel Application of K-Means
+Cluster Analysis” by Strutz, et. al., k-means clustering was used to
+find county-level counterfactuals. The goal was to find a counterfactual
+group that was very alike to the group that was the target of
+intervention (Kent County) so they could estimate the group
+randomization. Their analysis is based off the 83 counties in Michigan
+and chose population composition, social and economic factors, health
+care access, health outcomes, health behaviors, and physical environment
+as categories to gather features from. A total of 35 features was
+gathered from these categories. The method of k-means clustering was
+used to find comparison counties that were put in the same cluster as
+intervention counties. Their method of selecting an optimal number of
+clusters consisted of using a scree plot to visualize the curve created
+from the within sum of squares. They ran one analysis in which the
+features were standardized and another analysis in which the features
+were not standardized. The non-standardized analysis produced an optimal
+number of clusters of 4 and the standardized version produced no clear
+optimal number of clusters. Due to this issue, they tried different
+standardization and distance methods. Due to a previous study, they used
+Kent County in Michigan as the object of comparison and clustering. When
+using Euclidean distance, it was found that the three most similar
+counties to Kent County using non-standardized features were Macomb,
+Oakland, and Genesee, when using standardized features, it was Ingham,
+Kalamazoo, and Muskegon counties. According to the authors, k-means
+clustering identified 1-3 comparison counties using non-standardized
+features. Based on their analysis, it was found that the selection of
+their counties using a single distance measure was sensitive to their
+choices of standardization and measure of distance. Some limitations of
+this study are that the data chosen was not optimal, the presence of
+masking variables, a counterfactual community being compared at baseline
+was not comparable later in the study, and the presence of variables of
+high variability. This article really showcases the limitations of
+k-means clustering and what type of data is best used for
+it.[@strutz2022determining]
+
 ## Methods
 
 ## Analysis and Results
