@@ -70,17 +70,17 @@ selection [@zubair2022improved]. Basically this means that this process
 is looped over and over until there is a convergence and there are
 distinct clusters. 
 
-$$s=b-a/{max(a,b)}$$
+<center> $$s=b-a/{max(a,b)}$$
 
-Equation 1.
+Equation 1.</center>
 
-$$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
+<center> $$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
 
-Equation 2.
+Equation 2.</center>
 
-$$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
+<center> $$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
 
-Equation 3.
+Equation 3.</center>
 
 ### Applications of K-Means Clustering
 
