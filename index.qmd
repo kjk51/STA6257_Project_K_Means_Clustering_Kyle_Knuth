@@ -19,219 +19,174 @@ editor:
 
 ## Introduction
 
-### What is "method"?
+### What is "K-Means Clustering"?
 
-### Related work
+K-means clustering is a form of unsupervised learning that uses “k”
+clusters with assigned data to create groups. The main goal of k-means
+clustering is to classify data within clusters that are as similar as
+possible while also keeping it out of clusters as dissimilar as possible
+[@sinaga2020unsupervised]. There are several methods of finding the
+optimal number of clusters such as the Elbow method, Silhouette method,
+Gap statistic, Canopy algorithm, information criterion approach, and
+information theoretic approach. The Silhouette method is used to
+visually find the number of clusters by using the silhouette
+coefficients (equation 1). The silhouette coefficients can be between -1
+and 1 where a value of 1 indicates that the data is far from the
+neighboring cluster, a value of 0 means the data is close to the
+neighboring clusters and a value of -1 means that the data was assigned
+to the wrong cluster. The Gap statistic (equation 2), finds the optimal
+number of clusters by comparing the within cluster dispersion changes to
+expected with a null dispersion [@tibshirani2001estimating].  The Elbow
+method consists of plotting the sum of squared error versus “K” numbers
+and wherever the slope kinks at indicates the optimal number of clusters
+[@lee2022identifying]. As for the information criterion approach, it
+uses criteria such as the Akaike information criterion and the Bayesian
+information criterion to balance the likelihood increase with additional
+parameters; whereas, the information theoretic approach uses
+rate-distortion theory and jump statistic to find the correct number of
+clusters [@kodinariya2013review]\]. The last method of determining the
+optimal number of clusters is the Canopy Algorithm. The Canopy method is
+the best method for large and complex data sets and enhances the fault
+tolerance [@yuan2019research]. When it comes to smaller and less complex
+datasets, the other methods are better. Once the amount of clusters has
+been determined, the quality of those clusters can be assessed. The
+Calinski-Harabasz criterion is used to determine the quality of the data
+and a higher value indicates that the clusters are better separated
+[@qabbaah2019using]. The original data set is partitioned into clusters
+that have common traits and each cluster has a cluster center that
+starts from seed points. Then the k-means clustering method calculates
+the distance between each data point and each cluster center and takes
+an nxd matrix and assigns the data randomly to those clusters
+[@javadi2017classification]. The data points are clustered by Euclidean
+distance of intensity values to the centroid, and a new centroid is then
+calculated and the previous steps are repeated until the labels of the
+clusters no longer change [@dubey2013infected]. The Euclidean distance
+formula (equation 3) is used to compute the distance between the object
+center and each centroid[@9320839]. One of the most important parts to
+make k-means clustering more efficient is to find the most optimal
+centroids as quickly as possible. A solution to this is to use principal
+component analysis to estimate the initial centroids rather than random
+selection [@zubair2022improved]. Basically this means that this process
+is looped over and over until there is a convergence and there are
+distinct clusters. 
 
-#### Article Summary 1
+$$s=b-a/{max(a,b)}$$
 
-This article is about using k means clustering to look for defects on
-imported fruit, since it is time consuming to do it manually. The
-researchers’ goal is to segment an image of a fruit based off color
-using k-means clustering to determine if the fruit has “gone bad”.
-First, the authors explain how k-means clustering works and how it is
-applied. For example, the data is partitioned into clusters which have
-common traits and each cluster has a cluster center which starts from
-seed points. Then, k-means clustering calculates the distance between
-each data point and each cluster center and assigns the data point to
-the closest center. In order to apply this to their current research
-question, the images of the fruit are used and the pixels are clustered
-by color and spatial features. The clustered pixels are then combined to
-specific areas. The distribution of the intensity values is calculated
-and then using ‘k’ random intensities the centroids are set. The image
-points are clustered by distance of intensity values to the centroid. A
-new centroid is calculated and the previous two steps are repeated until
-the labels of the clusters no longer change. In order to segment the
-colors of the fruit, an image of the fruit was input and transformed
-from RGB to L\*a\*b\*. The authors decided to use L\*a\*b\*  because of
-the luminosity option and because all the color info is only in the a
-and b layers. This made segmenting the colors easier. The colors were
-classified in the a\*b\* layers and Euclidean distance was used to
-measure difference between colors. Each pixel in the image was labeled
-from k-means. K-means then computed the index corresponding to each
-cluster for each pixel and the pixel is labeled with a cluster index.
-Different images of the same fruit were then produced based on each
-cluster. The results in the paper were very interesting. They were able
-to clearly separate a single image of a fruit into multiple based off
-the coloring of that fruit. For example, they used an apple with scab
-disease and were able to use k-means clustering to separate out the
-diseased part of the apple. After some brief experimentation, they
-decided it was best to separate the images into 3 or 4 clusters. A
-limitation in this study is that too many or too few clusters would
-provide a lot of variability in detecting the “bad” part of the fruit
-and produce error. [@dubey2013infected]
+Equation 1.
 
-#### Article Summary 2
+$$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
 
-The goal of the author was to use a more objective method to assess
-aquifer contamination. The normal method was to use Depth to water
-table, net Recharge, Aquifer media, Soil media, Topography, Impact
-of vadose zone and hydraulic Conductivity (DRASTIC). The original
-problem was that selecting weights for the DRASTIC method was
-subjective. The author uses k means clustering to create a vulnerability
-map which doesn’t use fixed weights and uses 4 of the original 7 DRASTIC
-factors (DRIC). The author chose to do an analysis on an aquifer in Iran
-and made separate vulnerability maps using DRASTIC and k means
-clustering. The method of this analysis included creating a
-vulnerability map with DRASTIC, performing Principal Component Analysis
-to reduce the number of features, k means clustering was then used to
-acquire clusters from the new dataset and in turn was used to create a
-second vulnerability map. Lastly, the water quality of the aquifer was
-analyzed by collecting samples over the area the aquifer encompassed and
-both vulnerability maps were statistically compared to the water
-quality. The author then explains how k means clustering takes an nxd
-matrix and creates clusters in which data points are assigned. The
-assignment begins randomly but then is rearranged to where each data
-point is assigned to the nearest cluster. Using the Davie-Bouldin Index,
-it was found the best number of clusters was 5. Using Pearson’s
-correlation coefficient to compare both vulnerability maps to the actual
-water quality observations, it was found that the k means clustering
-method was better than the DRASTIC method. The author also found the
-p-value from Student's t-test to show there was a significant
-difference. The authors state that there could be a limitition in the
-methodology behind k-means clustering when used on even more complex
-aquifers in future analysis. [@javadi2017classification]
+Equation 2.
 
-#### Article Summary 3
+$$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
 
-The main goal of the authors is to use k-means clustering on
-pharmacokinetic parameters to predict chemotherapy response to bladder
-cancer. K-means clustering was used to alleviate the limitations in
-analyzing and interpreting the data gained from examining the
-effectiveness of therapeutic treatments. The data was segmented into
-clusters based off the distance of each individual data point to the
-cluster center. They decided to use three clusters and they determined
-the efficacy of the treatment by observing the changes of the cluster
-volume from the start of the treatment to the halfway point. They based
-each cluster off the amplitude and rate of microcirculation in the tumor
-tissue. Cluster one had a low amplitude and low rate, cluster two had a
-high amplitude and low rate, and cluster three had a high rate and low
-amplitude. When comparing the clusters of responders (responsive bladder
-cancer) and nonresponders (nonresponsive bladder cancer) of the
-treatment, responders had larger volume reduction in clusters one and
-three compared to cluster two. In nonresponders, cluster two had a
-volume increase. By observing the changes in volume, the authors were
-able to measure the tumor size before and after chemotherapy. They
-measured the cluster volume fractions before and halfway through
-treatment and found a 9% change in cluster one, a 17% change in cluster
-two, and a 5% change in cluster three in responders. In nonrepsonders,
-there was a 12 % change in cluster one, a 15% change in cluster two, and
-a 3% change in cluster three. Overall, k-means clustering was able to
-visualize the tumor from MRI’s, as well as show the response of
-chemotherapy. By using k-means clustering, they were able to use the
-clusters as biomarkers to identify the effectiveness of chemo, as well
-as an indication of future tumor response to chemotherapy. Some
-limitations in this study are that the sample size for nonresponders was
-small and motion correction wasn’t used in the analysis of the MRI data.
+Equation 3.
 
-[@nguyen2015prediction]
+### Applications of K-Means Clustering
 
-#### Article Summary 4
+There have been many useful applications of k-means clustering ranging
+from color segmentation to identifying allergen severity by age group.
+There has been research done on using color segmentation with k-means
+clustering to identify the diseased parts of the fruit. This was
+achieved by transforming the image from RGB to L\*a\*b\* and labeling
+the pixels of the image via k-means clustering [@dubey2013infected].
+Using this method, the diseased part of the fruit was picked out.
+K-means clustering can also be used to cluster geographic locations.
+Using an aquifer, k-means clustering was able to identify risk areas of
+the aquifer without using fixed weights [@javadi2017classification].
+When compared to data physically collected from the aquifer, it was
+shown that the map produced from clustering was very accurate. Another
+example using geography is clustering regions of Indonesia based on
+trade and accommodation facilities. Regions of Indonesia were clustered
+into 3 categories of high, medium, and low trade and accommodation
+[@munawar2021cluster]. K-means clustering also has medical applications
+such as predicting chemotherapy response to cancer, how skin changes as
+you age, pregnancy problems, and how your allergen sensitivity changes
+as you age. Since it doesn’t have the same limitations as traditional
+methods, k-means clustering was chosen to predict chemotherapy response
+and was able to create clusters that acted as biomarkers to determine
+the treatment’s effectiveness [@nguyen2015prediction]. Based on
+different attributes of the pores in one’s skin, k-means clustering was
+able to create groups based on the detectability and size of the poor.
+From this information as well as the mean age of each cluster, the
+changes in skin were able to be inferred by the age group of each
+cluster. Similarly, by using the data from immunoglobulin tests, k-means
+clustering created groups based on age to explain how for certain
+allergens the sensitivity actually decreased as age increased
+[@zhao2023k]. Pregnancy problems can also be analyzed with this method.
+K-means clustering was used to aid health professionals in making
+decisions about interventions to reduce pregnancy problems [@9154694].
+In terms of a more academic field, k-means clustering was also utilized
+to assess academic performance. Students were categorized into different
+levels based on performance which enables a more comprehensive view than
+traditional grouping based on average scores [@oyelade2010application].
+K-means can also be used for the tourism industry. By using a modified
+k-means algorithm, a tourist’s preferences and behaviors can be
+clustered so that the satisfaction and experience can be improved
+[@ijgi13020040]. Another field that k-means is useful in is agriculture.
+When using k-means clustering soil, clusters were generated that
+improved the understanding of soil classification and spatial
+representation of that soil to make more informed decisions[@7377608].As
+a last example, our method was used to cluster counties together based
+on similarity to each other from economic factors to health behaviors so
+that county-level counterfactuals could be found
+[@strutz2022determining]. 
 
-In this article, the authors’ wanted to identify patterns of change in
-skin pores using k-means clustering. Using three-dimensional
-measurements, the authors’ looked for patterns of how pores change due
-to age. Their measurements came from 101 Korean women’s cheeks. The skin
-pores were grouped into five clusters based off the size, density, and
-elongation of the pores. The pores were segmented by projecting the
-three-dimensional surface into a two dimensional plane (depth map). The
-intensities of the pixels corresponds to the z-coordinate. From there,
-the skin pores were segmented. Within each segmentation, the area and
-elongation was computed. The average pore size, pore elongation, and
-pore densities were used as variables. The Elbow method, which was used
-to find the best number of clusters in this study, consists of plotting
-the sum of squared error versus K numbers and wherever the slope
-plateaued it indicated a potential cluster. The pores were clustered
-into the five groups as follows: a few pores are detected and they are
-small, the pores are larger and more detectable, the pores are even
-larger and more detectable, then for the last two clusters the pores
-increase in size and elongation but become harder to detect. The mean
-age of the first cluster is 10.1, the mean age of the second cluster is
-31.2, the mean age of the third is 35.8, the mean age of the fourth is
-48.6, and the mean age of the fifth cluster is 55.8. According to the
-authors’, the change in pores from clusters one and two may be due to
-puberty. The results of this study show that pores become larger and
-more elongated as one ages indicating that pores play a role in the
-appearance of wrinkles and aging skin. Some limitations in this study
-are that data regarding the patients lifestyles or health related
-conditions which might explain the status of their pores was not
-available and the detection of connected pores needed to be improved.
-The connected pores cause significant increases in elongation.
+## Variations of K-Means Clustering
 
-[@lee2022identifying]
+Apart from the traditional method of k-means clustering there is also
+constrained k-means clustering. Constrained k-means clustering is mainly
+used to increase robustness of the model and to deal with outlier
+clusters that are far from their true clusters in order to enforce
+consistency [@bradley2000constrained]. Another variation of the
+traditional method is the improved k-means clustering algorithm. The
+improved algorithm uses two data structures to retain the cluster labels
+and their distances while reducing the amount of repeated distance
+calculations [@na2010research]. This improved algorithm improves speed
+and efficiency while maintaining accuracy. The next variation is called
+the filtering algorithm. The filtering algorithm is an optimized
+implementation of Lloyd's k-means using a kd-tree structure, and
+performs best in clustering by refining candidate center selection
+through axis-aligned splitting hyperplanes and efficient trimming
+[@kanungo2002efficient]. The allure of this variation is that it has
+great efficiency, is simplistic, and is scalable to higher dimensions.
+Genetic-based k-means (GBKM) clustering is another alternative offering
+speed and accuracy. What makes this algorithm different from the
+traditional one is that the “centroids are encoded by chromosomes rather
+than random initial cluster centroids”[@chougule2015genetic]. GBKM also
+follows some of the same ideas of natural selection such as selection,
+crossover, and mutation. This modified k-means algorithm selects the
+fittest points from the clusters to produce a new generation by
+performing single point crossover and one-bit flip mutation until the
+best results are found [@chougule2015genetic]. K-means clustering can
+also be used in conjunction with other tools. An example is the use of
+MapReduce from Hadoop to aid with the amount of data used. In this
+process, two files are created where one contains the centroid values
+and the other contains data point values and the mapper function is
+coded to calculate the distance between each centroid and data point
+then assigned to the centroid with the lowest distance
+[@anchalia2013mapreduce]. A new iteration of map reduce will be
+performed again until the centroid value is not updated. Lastly, there
+is the extended k-means algorithm. Extended k-means takes the number of
+elements within a cluster into consideration by sorting the clusters in
+ascending order based on the number of elements in each cluster and
+either recruits or drops elements from the first cluster [@6642738]. If
+there are n elements in the cluster and an element is needed, the
+difference, a-n, is calculated and points from other clusters are
+recruited. 
 
-#### Article Summary 5
+## Limitations
 
-In the article, “K‐means cluster analysis of characteristic patterns of
-allergen in different ages: Real life study” by Zhao et. al., the
-authors’ goal was to use k-means clustering to cluster different age
-groups based off the severity of allergens. They wanted to see the
-relationship age had on potentially reducing the severity of allergens.
-An allergen specific immunoglobulin test was used to test 17 of the most
-common allergens such as dog, cat, penicillin, and shellfish. The
-allergen severity was partitioned into 7 grades with ranges between 0
-and greater than 100 kU/L and each grade was assigned a number from 0 to
-6. The authors then explain that k-means clustering is unsupervised
-machine learning, and it finds similar groups of unlabeled data. In this
-case, k-means clustering was used to cluster age groups according to
-allergen sensitivity. Their implementation of k-means clustering
-consisted of randomly extracting k-number of data objects and computing
-the centroids. Then the data is put into clusters by reducing the
-distance of the centroids of each cluster. Finally, the centroids are
-recalculated according to the previous step over and over until the
-clusters come together. The k-means clustering analysis ended up
-creating the following 5 different age groups: 1-17, 18-36, 37-52,
-53-69, and 70-100. Interestingly, the incidence of both atopy and
-aeroallergens decreased as the age increased. It went from 59.79% to
-37.62% from the first age group to the last age group. Concerning food
-allergens, the incidence was all over the place between the age groups
-depending on the specific food. For example, seafood sensitivity was
-increased in older age groups. Another interesting result was the
-incidence of poly-sensitization decreased with increasing age as well.
-It was also observed that in all age groups, except 37-52, the incidence
-of atopy was higher in males than females. In addition, it was found
-that dust mite sensitization had the highest incidence in patients up to
-age 52. Limitations of this study are that the data came from a single
-area and their statistical methods assume there is a cause-effect
-relationship of the risk factors and atopy. [@zhao2023k]
-
-#### Article Summary 6
-
-In the article “Determining County-Level Counterfactuals for Evaluation
-of Population Health Interventions: A Novel Application of K-Means
-Cluster Analysis” by Strutz, et. al., k-means clustering was used to
-find county-level counterfactuals. The goal was to find a counterfactual
-group that was very alike to the group which was the target of
-intervention (Kent County) so they could estimate the group
-randomization. Their analysis is based off the 83 counties in Michigan
-and chose population composition, social and economic factors, health
-care access, health outcomes, health behaviors, and physical environment
-as categories to gather features. A total of 35 features was gathered
-from these categories. The method of k-means clustering was used to find
-comparison counties that were put in the same cluster as intervention
-counties. Their method of selecting an optimal number of clusters
-consisted of using a scree plot to visualize the curve created from
-"within sum of squares". They ran one analysis in which the features
-were standardized and another analysis in which the features were not
-standardized. The non-standardized analysis produced an optimal number
-of clusters of 4 and the standardized version produced no clear optimal
-number of clusters. Due to this issue, they tried different
-standardizations and distance methods. Due to a previous study, they
-used Kent County in Michigan as the object of comparison and clustering.
-When using Euclidean distance, it was found that the three most similar
-counties to Kent County using non-standardized features were Macomb,
-Oakland, and Genesee. When using standardized features, it was Ingham,
-Kalamazoo, and Muskegon counties. According to the authors, k-means
-clustering identified 1-3 comparison counties using non-standardized
-features. Based on their analysis, it was found that the selection of
-their counties using a single distance measure was sensitive to their
-choices of standardization and measure of distance. Limitations of this
-study are that the data chosen was not optimal, the presence of masking
-variables, a counterfactual community being compared at baseline was not
-comparable later in the study, and the presence of variables of high
-variability. This article really showcases the limitations of k-means
-clustering and what type of data is best used for
-it.[@strutz2022determining]
+Even though k-means clustering is a great tool for data analysis it
+still has its limitations. A few of those limitations are the random
+initialisations of centroids, the requirement to know in advance the
+number of clusters present within a dataset, and also the inability of
+the algorithm to handle a wide variety of very different types of data
+[@electronics9081295]. If you were to choose too many or too few
+clusters, a lot of variability will be brought into the model. If the
+data were to become more complex, there would be issues in the
+clustering. There needs to be an adequate sample size and the data needs
+to be preprocessed very carefully due to its scalability. 
 
 ## Methods
 
