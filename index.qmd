@@ -1,6 +1,11 @@
 ---
 title: "K-Means Clustering"
-author: "Kyle Knuth"
+authors:
+  - name: Kyle Knuth
+  - name: Siva Gopavarapu
+  - name: Nikhitha Karlapudi
+  - name: Eswar Sai Burugupalley
+  - name: Bala Venkataprasad Sadhana Vittal
 date: 'today'
 format:
   html:
@@ -30,15 +35,15 @@ optimal number of clusters such as the Elbow method, Silhouette method,
 Gap statistic, Canopy algorithm, information criterion approach, and
 information theoretic approach. The Silhouette method is used to
 visually find the number of clusters by using the silhouette
-coefficients (equation 1). The silhouette coefficients can be between -1
-and 1 where a value of 1 indicates that the data is far from the
-neighboring cluster, a value of 0 means the data is close to the
-neighboring clusters and a value of -1 means that the data was assigned
-to the wrong cluster. The Gap statistic (equation 2), finds the optimal
-number of clusters by comparing the within cluster dispersion changes to
-expected with a null dispersion [@tibshirani2001estimating].  The Elbow
-method consists of plotting the sum of squared error versus “K” numbers
-and wherever the slope kinks at indicates the optimal number of clusters
+coefficients. The silhouette coefficients can be between -1 and 1 where
+a value of 1 indicates that the data is far from the neighboring
+cluster, a value of 0 means the data is close to the neighboring
+clusters and a value of -1 means that the data was assigned to the wrong
+cluster. The Gap statistic finds the optimal number of clusters by
+comparing the within cluster dispersion changes to expected with a null
+dispersion [@tibshirani2001estimating].  The Elbow method consists of
+plotting the sum of squared error versus “K” numbers and wherever the
+slope kinks at indicates the optimal number of clusters
 [@lee2022identifying]. As for the information criterion approach, it
 uses criteria such as the Akaike information criterion and the Bayesian
 information criterion to balance the likelihood increase with additional
@@ -48,39 +53,30 @@ clusters [@kodinariya2013review]\]. The last method of determining the
 optimal number of clusters is the Canopy Algorithm. The Canopy method is
 the best method for large and complex data sets and enhances the fault
 tolerance [@yuan2019research]. When it comes to smaller and less complex
-datasets, the other methods are better. Once the amount of clusters has
-been determined, the quality of those clusters can be assessed. The
-Calinski-Harabasz criterion is used to determine the quality of the data
-and a higher value indicates that the clusters are better separated
-[@qabbaah2019using]. The original data set is partitioned into clusters
-that have common traits and each cluster has a cluster center that
-starts from seed points. Then the k-means clustering method calculates
-the distance between each data point and each cluster center and takes
-an nxd matrix and assigns the data randomly to those clusters
-[@javadi2017classification]. The data points are clustered by Euclidean
-distance of intensity values to the centroid, and a new centroid is then
-calculated and the previous steps are repeated until the labels of the
-clusters no longer change [@dubey2013infected]. The Euclidean distance
-formula (equation 3) is used to compute the distance between the object
-center and each centroid[@9320839]. One of the most important parts to
-make k-means clustering more efficient is to find the most optimal
-centroids as quickly as possible. A solution to this is to use principal
-component analysis to estimate the initial centroids rather than random
-selection [@zubair2022improved]. Basically this means that this process
-is looped over and over until there is a convergence and there are
-distinct clusters. 
+datasets, the other methods are better.
 
-<center> $$s=b-a/{max(a,b)}$$
+Once the amount of clusters has been determined, the quality of those
+clusters can be assessed. The Calinski-Harabasz criterion is used to
+determine the quality of the data and a higher value indicates that the
+clusters are better separated [@qabbaah2019using]. The original data set
+is partitioned into clusters that have common traits and each cluster
+has a cluster center that starts from seed points. Then the k-means
+clustering method calculates the distance between each data point and
+each cluster center and takes an nxd matrix and assigns the data
+randomly to those clusters [@javadi2017classification]. The data points
+are clustered by Euclidean distance of intensity values to the centroid,
+and a new centroid is then calculated and the previous steps are
+repeated until the labels of the clusters no longer change
+[@dubey2013infected]. The Euclidean distance formula is used to compute
+the distance between the object center and each centroid[@9320839].
 
-Equation 1.</center>
-
-<center> $$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
-
-Equation 2.</center>
-
-<center> $$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
-
-Equation 3.</center>
+One of the most important parts to make k-means clustering more
+efficient is to find the most optimal centroids as quickly as possible.
+A solution to this is to use principal component analysis to estimate
+the initial centroids rather than random selection
+[@zubair2022improved]. Basically this means that this process is looped
+over and over until there is a convergence and there are distinct
+clusters. 
 
 ### Applications of K-Means Clustering
 
@@ -99,23 +95,26 @@ shown that the map produced from clustering was very accurate. Another
 example using geography is clustering regions of Indonesia based on
 trade and accommodation facilities. Regions of Indonesia were clustered
 into 3 categories of high, medium, and low trade and accommodation
-[@munawar2021cluster]. K-means clustering also has medical applications
-such as predicting chemotherapy response to cancer, how skin changes as
-you age, pregnancy problems, and how your allergen sensitivity changes
-as you age. Since it doesn’t have the same limitations as traditional
-methods, k-means clustering was chosen to predict chemotherapy response
-and was able to create clusters that acted as biomarkers to determine
-the treatment’s effectiveness [@nguyen2015prediction]. Based on
-different attributes of the pores in one’s skin, k-means clustering was
-able to create groups based on the detectability and size of the poor.
-From this information as well as the mean age of each cluster, the
-changes in skin were able to be inferred by the age group of each
-cluster. Similarly, by using the data from immunoglobulin tests, k-means
-clustering created groups based on age to explain how for certain
-allergens the sensitivity actually decreased as age increased
-[@zhao2023k]. Pregnancy problems can also be analyzed with this method.
-K-means clustering was used to aid health professionals in making
-decisions about interventions to reduce pregnancy problems [@9154694].
+[@munawar2021cluster].
+
+K-means clustering also has medical applications such as predicting
+chemotherapy response to cancer, how skin changes as you age, pregnancy
+problems, and how your allergen sensitivity changes as you age. Since it
+doesn’t have the same limitations as traditional methods, k-means
+clustering was chosen to predict chemotherapy response and was able to
+create clusters that acted as biomarkers to determine the treatment’s
+effectiveness [@nguyen2015prediction]. Based on different attributes of
+the pores in one’s skin, k-means clustering was able to create groups
+based on the detectability and size of the poor. From this information
+as well as the mean age of each cluster, the changes in skin were able
+to be inferred by the age group of each cluster. Similarly, by using the
+data from immunoglobulin tests, k-means clustering created groups based
+on age to explain how for certain allergens the sensitivity actually
+decreased as age increased [@zhao2023k]. Pregnancy problems can also be
+analyzed with this method. K-means clustering was used to aid health
+professionals in making decisions about interventions to reduce
+pregnancy problems [@9154694].
+
 In terms of a more academic field, k-means clustering was also utilized
 to assess academic performance. Students were categorized into different
 levels based on performance which enables a more comprehensive view than
@@ -179,7 +178,7 @@ recruited. 
 
 Even though k-means clustering is a great tool for data analysis it
 still has its limitations. A few of those limitations are the random
-initialisations of centroids, the requirement to know in advance the
+initializations of centroids, the requirement to know in advance the
 number of clusters present within a dataset, and also the inability of
 the algorithm to handle a wide variety of very different types of data
 [@electronics9081295]. If you were to choose too many or too few
@@ -189,6 +188,34 @@ clustering. There needs to be an adequate sample size and the data needs
 to be preprocessed very carefully due to its scalability. 
 
 ## Methods
+
+We will talk about these equations later when we get to this part.
+
+Determining number of clusters:
+
+<center>
+
+$$s=b-a/{max(a,b)}$$
+
+Equation 1.
+
+</center>
+
+<center>
+
+$$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
+
+Equation 2.
+
+</center>
+
+<center>
+
+$$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
+
+Equation 3.
+
+</center>
 
 ## Analysis and Results
 
