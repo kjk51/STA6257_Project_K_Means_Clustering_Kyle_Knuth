@@ -1,5 +1,5 @@
 ---
-title: "Using K-Means Clustering to determine Credit Score Grouping"
+title: "Using K-Means Clustering to determine groupings of fatal car crashes"
 authors:
   - name: Kyle Knuth
   - name: Siva Gopavarapu
@@ -32,9 +32,8 @@ clustering is to classify data within clusters, which are as similar as
 possible, while also keeping it out of clusters as dissimilar as
 possible [@sinaga2020unsupervised]. There are several methods of finding
 the optimal number of clusters, such as the Elbow method, Silhouette
-method, Gap statistic, Canopy algorithm, information criterion approach,
-and information theoretic approach. The Silhouette method is used to
-visually find the number of clusters by using the silhouette
+method, Gap statistic, and Canopy algorithm. The Silhouette method is
+used to visually find the number of clusters by using the silhouette
 coefficients. The silhouette coefficients can be between -1 and 1, where
 a value of 1 indicates the data is far from the neighboring cluster, a
 value of 0 means the data is close to the neighboring clusters and a
@@ -43,17 +42,12 @@ statistic finds the optimal number of clusters by comparing the within
 cluster dispersion changes to expected with a null dispersion
 [@tibshirani2001estimating].  The Elbow method consists of plotting the
 sum of squared error versus “K” numbers and wherever the slope kinks at
-indicates the optimal number of clusters [@lee2022identifying]. As for
-the information criterion approach, it uses criteria such as the Akaike
-information criterion and the Bayesian information criterion to balance
-the likelihood increase with additional parameters; whereas, the
-information theoretic approach uses rate-distortion theory and jump
-statistic to find the correct number of clusters
-[@kodinariya2013review]. The last method of determining the optimal
-number of clusters is the Canopy algorithm. The Canopy algorithm is the
-best method for large and complex data sets and enhances the fault
-tolerance [@yuan2019research]. When it comes to smaller and less complex
-data-sets, the other methods are better.
+indicates the optimal number of clusters [@lee2022identifying]. The last
+method of determining the optimal number of clusters is the Canopy
+algorithm. The Canopy algorithm is the best method for large and complex
+data sets and enhances the fault tolerance [@yuan2019research]. When it
+comes to smaller and less complex data-sets, the other methods are
+better.
 
 Once the amount of clusters has been determined, the quality of those
 clusters can be assessed. The Calinski-Harabasz criterion is used to
@@ -75,7 +69,7 @@ efficient is to find the most optimal centroids as quickly as possible.
 A solution to this is to use principal component analysis to estimate
 the initial centroids rather than random selection
 [@zubair2022improved]. Basically this means, the process is looped over
-and over until there is a convergence and there are distinct clusters. 
+and over until there is a convergence and there are distinct clusters.
 
 ### Applications of K-Means Clustering
 
@@ -114,11 +108,7 @@ this method. K-means clustering was used to aid health professionals in
 making decisions about interventions to reduce pregnancy problems
 [@9154694].
 
-In terms of a more academic field, K-means clustering was also utilized
-to assess academic performance. Students were categorized into different
-levels based on performance which enables a more comprehensive view than
-traditional grouping based on average scores [@oyelade2010application].
-K-means is also used for the tourism industry. By using a modified
+K-means is also present in the tourism industry. By using a modified
 K-means algorithm, a tourist’s preferences and behaviors can be
 clustered, so the satisfaction and experience can be improved
 [@ijgi13020040]. Additionally, K-means is useful in agriculture. When
@@ -132,11 +122,11 @@ counterfactuals could be found [@strutz2022determining]. 
 ## Variations of K-Means Clustering
 
 Apart from the traditional method of K-means clustering, there is also
-constrained K-means clustering. Constrained K-means clustering is mainly
-used to increase robustness of the model and to deal with outlier
-clusters which are far from their true clusters in order to enforce
-consistency [@bradley2000constrained]. Another variation of the
-traditional method is the improved K-means clustering algorithm. The
+constrained K-means clustering. Constrained K-means clustering consists
+of having lower bounds for clusters and the distances between those
+clusters [@usami2014constrained]. This method either deletes or
+consolidates clusters based off the constraints. Another variation of
+the traditional method is the improved K-means clustering algorithm. The
 improved algorithm uses two data structures to retain the cluster labels
 and their distances, while reducing the amount of repeated distance
 calculations [@na2010research]. This improved algorithm improves speed
@@ -219,7 +209,144 @@ Equation 3.
 
 ### Data and Visualization
 
-A study was conducted to determine how...
+For our fatal car crash clustering, we are using the dataset from
+"Fatalities" from the AER R package which originally came from US
+Department of Transportation Fatal Accident Reporting System and is
+dated from 1982-1988. In addition, the income variable was obtained from
+the US Bureau of Economic Analysis and unemployment rate was obtained
+from the US Bureau of Labor Statistics. The data includes all the states
+except Alaska and Hawaii.
+
+| Variable     | Variable Type | Description                                                                                            |
+|------------|------------|------------------------------------------------|
+| state        | Categorical   | A categorical variable that represents the state                                                       |
+| year         |               | The year is indicated by the categorical factor                                                        |
+| spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
+| unemp        | Continuous    | The unemployment rate expressed as a numerical value.                                                  |
+| income       | Continuous    | A numerical value in 1987 dollars that represents the per capita personal income.                      |
+| emppop       | Continuous    | The employment to population ratio expressed as a numerical value.                                     |
+| beertax      | Continuous    | The tax on a case of beer expressed as a numerical value.                                              |
+| baptist      | Continuous    | A number that indicates the proportion of Southern Baptists in the general population.                 |
+| mormon       | Continuous    | A numerical value that indicates the proportion of Mormons in the general population.                  |
+| drinkage     | Continuous    | A number that represents the minimum age at which alcohol is permitted.                                |
+| dry          | Continuous    | A numerical number that indicates the proportion of people living in "dry" counties.                   |
+| youngdrivers | Continuous    | A numerical value indicating the proportion of drivers between the ages of 15 and 24.                  |
+| miles        | Continuous    | A numerical value indicating the average number of miles driven by each driver.                        |
+| breath       | Boolean       | A categorical factor that denotes the existence of a law requiring a preliminary breath test.          |
+| jail         | Boolean       | A categorical factor that indicates whether a jail sentence is required.                               |
+| service      | Boolean       | A categorical factor that denotes the existence of a community service requirement.                    |
+| fatal        | Continuous    | A number that indicates the overall number of people killed in cars.                                   |
+| nfatal       | Continuous    | A numerical value that indicates the quantity of car deaths that occur at night.                       |
+| sfatal       | Continuous    | A numerical value that indicates how many people have died in just one vehicle.                        |
+| fatal1517    | Continuous    | A numerical value that indicates how many teenagers between the ages of 15 and 17 were killed in cars. |
+| nfatal1517   | Continuous    | A numerical value that indicates how many teenagers, aged 15 to 17, are killed in cars at night.       |
+| fatal1820    | Continuous    | A numerical value that indicates the total number of 18–20-year-olds who die in cars.                  |
+| nfatal1820   | Continuous    | A numerical value that indicates how many teenagers, aged 18 to 20, are killed in cars at night.       |
+| fatal2124    | Continuous    | A numerical value that indicates how many people aged 21 to 24 are killed in cars.                     |
+| nfatal2124   | Continuous    | A numerical value that indicates how many people aged 21 to 24 are killed in cars.                     |
+| afatal       | Continuous    | A numerical value that indicates the quantity of drunk driving deaths.                                 |
+| pop          | Continuous    | A numerical figure that indicates the entire population.                                               |
+| pop1517      | Continuous    | A numerical value that indicates the population of people aged 15 to 17.                               |
+| pop1820      | Continuous    | A numerical value that denotes the 18–20 year old population.                                          |
+| pop2124      | Continuous    | A numerical value that denotes the population of people aged 21 to 24.                                 |
+| milestot     | Continuous    | A number (in millions) that indicates the total number of miles driven by a vehicle.                   |
+| unemppopus   | Continuous    | The US unemployment rate expressed as a numerical value.                                               |
+| Emppopus     | Continuous    | The US employment to population ratio expressed as a numerical value.                                  |
+| gsp          | Continuous    | A numerical value that indicates the Gross State Product's (GSP) rate of change.                       |
+
+```{r}
+install.packages("tidyverse",repos = "http://cran.us.r-project.org")
+install.packages("MASS", repos = "http://cran.us.r-project.org")
+install.packages("fpc", repos = "http://cran.us.r-project.org")
+install.packages("waterfalls", repos = "http://cran.us.r-project.org")
+install.packages("gt", repos = "http://cran.us.r-project.org")
+install.packages("gtable", repos = "http://cran.us.r-project.org")
+install.packages("ggcorrplot", repos = "http://cran.us.r-project.org")
+install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+install.packages("corrplot", repos = "http://cran.us.r-project.org")
+install.packages("googlesheets4", repos = "http://cran.us.r-project.org")
+install.packages("cluster", repos = "http://cran.us.r-project.org")
+install.packages("factoextra", repos = "http://cran.us.r-project.org")
+install.packages("DescTools", repos = "http://cran.us.r-project.org")
+install.packages("isofor", repos = "http://cran.us.r-project.org")
+install.packages("missForest", repos = "http://cran.us.r-project.org")
+install.packages("AER", repos = "http://cran.us.r-project.org")
+library(AER)
+library(e1071)
+library(missForest)
+library(DescTools)
+library(MASS)
+library(fpc)
+library(cluster)
+library(factoextra)
+library(tidyverse)
+library(waterfalls)
+library(corrplot)
+library(ggcorrplot)
+library(googlesheets4) 
+data("Fatalities")
+df=Fatalities
+```
+
+```{r}
+summary(df)
+```
+
+This code block converts the percentage of Baptists and Mormons to a
+count as well as picks the variables of interest such as spirits
+consumption, the amount of baptist, the amount of mormons, the age range
+of fatal car crashes, and alcohol related car crashes. In addition, we
+check for any missing data
+
+```{r}
+df$baptist=df$baptist/100
+df$mormon=df$mormon/100
+df$baptist=df$baptist*df$pop
+df$mormon=df$mormon*df$pop
+df=df[c(3,8,9,20,22,24,26)]
+sum(is.na(df))
+```
+
+```{r}
+sum(is.null(df))
+```
+
+Here we scale the data and check for outliers. Although k-means is
+sensitive to outliers, we will keep these outliers be we believe they
+are not true outliers.
+
+```{r}
+df2=as.data.frame(scale(df))
+boxplot(df2)
+```
+
+In this code block we examine the correlation between each variable.
+
+```{r}
+model.matrix(~0+., data=df2) %>% 
+  cor(use="pairwise.complete.obs") %>% 
+  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
+
+
+```
+
+```{r}
+summary(df2)
+```
+
+Here, we are checking for the optimal number of clusters using the elbow
+method. According to this it is 9 clusters.
+
+```{r}
+fviz_nbclust(df2, kmeans, method = "wss")
+```
+
+Here we are using the Silhouette method which also shows 9 clusters.
+
+```{r}
+silhouette2 = pamk(df2)
+plot(pam(df, silhouette2$nc))
+```
 
 ### Statistical Modeling
 
