@@ -32,22 +32,24 @@ clustering is to classify data within clusters, which are as similar as
 possible, while also keeping it out of clusters as dissimilar as
 possible [@sinaga2020unsupervised]. There are several methods of finding
 the optimal number of clusters, such as the Elbow method, Silhouette
-method, Gap statistic, and Canopy algorithm. The Silhouette method is
-used to visually find the number of clusters by using the silhouette
-coefficients. The silhouette coefficients can be between -1 and 1, where
-a value of 1 indicates the data is far from the neighboring cluster, a
-value of 0 means the data is close to the neighboring clusters and a
-value of -1 means the data was assigned to the wrong cluster. The Gap
-statistic finds the optimal number of clusters by comparing the within
-cluster dispersion changes to expected with a null dispersion
+method, Gap statistic. The Silhouette method is used to visually find
+the number of clusters by using the silhouette coefficients. The
+silhouette coefficients can be between -1 and 1, where a value of 1
+indicates the data is far from the neighboring cluster, a value of 0
+means the data is close to the neighboring clusters and a value of -1
+means the data was assigned to the wrong cluster. The Gap statistic
+finds the optimal number of clusters by comparing the within cluster
+dispersion changes to expected with a null dispersion
 [@tibshirani2001estimating].  The Elbow method consists of plotting the
 sum of squared error versus “K” numbers and wherever the slope kinks at
-indicates the optimal number of clusters [@lee2022identifying]. The last
-method of determining the optimal number of clusters is the Canopy
-algorithm. The Canopy algorithm is the best method for large and complex
-data sets and enhances the fault tolerance [@yuan2019research]. When it
-comes to smaller and less complex data-sets, the other methods are
-better.
+indicates the optimal number of clusters [@lee2022identifying].In
+addition to the standard preprocessing steps, the Canopy algorithm may
+also be utilized. The Canopy algorithm helps partion the data into
+smaller subsets in which k-means clustering is performed on each
+separate one to help reduce the computational complexity, and is best
+used for large and complex data sets and enhances the fault tolerance
+[@yuan2019research]. When it comes to smaller and less complex
+data-sets, the other methods are better.
 
 Once the amount of clusters has been determined, the quality of those
 clusters can be assessed. The Calinski-Harabasz criterion is used to
@@ -177,9 +179,36 @@ to be pre-processed very carefully due to its scalability. 
 
 ## Methods
 
-We will talk about these equations later when we get to this part.
-
-Determining number of clusters:
+The methodology behind this analysis involves preprocessing the data,
+picking variables of interest, determining the optimal number of
+clusters, performing the k-means clustering, and identifying what each
+cluster consists of. In order to make the data better suited for our
+needs we will convert the Baptist and Mormon variables from a percentage
+to a count using the "pop" variable. Afterwards a new dataframe
+consisting variables of interest such as spirits, baptist, mormon,
+fatal1517, fatal1820, fatal2124, and afatal, will be created and scaled.
+In addition, Recursive Feature Elimination will be used to find
+variables from the original dataframe to run our analysis on as well as
+on our chosen variables. Overall we will be running k-means clustering
+on three dataframes and collecting valuable insights from it. Next, the
+Elbow method and Silhouette coefficient will be used to determine the
+optimum number of clusters. The Silhouette Coefficient (equation 1) is
+used to measure how similar a data point is to its own cluster compared
+to other clusters based off a range of -1 to 1. A more positive values
+means that the data is well placed within its cluster. In equation 1, a
+is the average distance from data point to the other data points within
+the same cluster and b is the minimum average distance from one point to
+points in other clusters. The Elbow Method (equation 2) consists of
+plotting the within-cluster sum of squares against the number of
+clusters and visually selecting a point where where the rate of decrease
+significantly slows down. In equation 2, k is the number of clusters, C
+is the ith cluster, and \|\|x-mu\|\|\^2 is the squared Euclidean
+distance. The Euclidean distance (equation 3) is the straight line
+distance between two points where p and q are the points in an
+n-dimensional space and n is the number of dimensions. Once the optimal
+number of clusters is determined, k-means clustering will be performed
+on each data frame and insights will be made based on the assignment of
+clusters.
 
 <center>
 
@@ -191,7 +220,9 @@ Equation 1.
 
 <center>
 
-$$Gap_n(k)=E^*_n(log(W_k))-log(W_k)$$
+$$
+WCSS(k)=\sum^k_{i=1}\sum_{x\in C_i}||x-\mu_i||^2
+$$
 
 Equation 2.
 
@@ -271,6 +302,8 @@ install.packages("DescTools", repos = "http://cran.us.r-project.org")
 install.packages("isofor", repos = "http://cran.us.r-project.org")
 install.packages("missForest", repos = "http://cran.us.r-project.org")
 install.packages("AER", repos = "http://cran.us.r-project.org")
+install.packages("caret", repos = "http://cran.us.r-project.org")
+library(caret)
 library(AER)
 library(e1071)
 library(missForest)
@@ -286,6 +319,7 @@ library(ggcorrplot)
 library(googlesheets4) 
 data("Fatalities")
 df=Fatalities
+df3=Fatalities
 ```
 
 ```{r}
@@ -320,13 +354,28 @@ df2=as.data.frame(scale(df))
 boxplot(df2)
 ```
 
+```{r}
+detection=function(x) {
+  q1=quantile(x,probs=.25) 
+  q3=quantile(x,probs=.75) 
+  iqr=q3-q1 
+  x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+
+elimination= function(df,cols=names(df)) {
+  for(col in cols) { 
+    df=df[!detection(df[[col]]),]}
+  return(df)} 
+column_names=c('spirits','baptist','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
+cleaned_df2=elimination(df2,column_names)
+boxplot(cleaned_df2)
+```
+
 In this code block we examine the correlation between each variable.
 
 ```{r}
-model.matrix(~0+., data=df2) %>% 
+model.matrix(~0+., data=cleaned_df2) %>% 
   cor(use="pairwise.complete.obs") %>% 
   ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
-
 
 ```
 
@@ -335,17 +384,123 @@ summary(df2)
 ```
 
 Here, we are checking for the optimal number of clusters using the elbow
-method. According to this it is 9 clusters.
+method. According to this it is 7 clusters.
 
 ```{r}
-fviz_nbclust(df2, kmeans, method = "wss")
+fviz_nbclust(cleaned_df2, kmeans, method = "wss")
 ```
 
-Here we are using the Silhouette method which also shows 9 clusters.
+Here we are using the Silhouette method which shows 3 clusters.
 
 ```{r}
-silhouette2 = pamk(df2)
-plot(pam(df, silhouette2$nc))
+fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
+```
+
+For this next part we are using Recursive Feature Elimination to
+determine which variables to keep based off a response variable. In this
+case we are interested in the number of vehicle fatalities that involved
+alcohol.
+
+```{r}
+sum(is.na(df3))
+```
+
+```{r}
+df3=na.omit(df3)
+```
+
+```{r}
+#We are only keeping numerical variables and only keeping the fatality variables related to age and alcohol since the other fatality variables are too similar. We are also getting rid of the population variables.
+df3$baptist=df3$baptist/100
+df3$mormon=df3$mormon/100
+df3$baptist=df3$baptist*df3$pop
+df3$mormon=df3$mormon*df3$pop
+df3=df3[-c(1,2,14,15,16,17,18,19,21,23,25,27,28,29,30,31)]
+
+control=rfeControl(functions = rfFuncs, method = "cv", number=10)
+df3=as.data.frame(scale(df3))
+predictors=df3[,-which(names(df3)=="afatal")]
+response=df3$afatal
+result=rfe(x=predictors, y = response, sizes=c(1:10), rfeControl = control, metric = "RMSE", method="cv")
+print(result)
+```
+
+```{r}
+df3=df3[c(6,7,12,13,14,15)]
+boxplot(df3)
+```
+
+```{r}
+column_names2=c('baptist','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
+cleaned_df3=elimination(df3,column_names2)
+boxplot(cleaned_df3)
+```
+
+```{r}
+model.matrix(~0+., data=cleaned_df3) %>% 
+  cor(use="pairwise.complete.obs") %>% 
+  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
+```
+
+The elbow test for this new dataframe shows the optimal number of
+clusters at 6.
+
+```{r}
+fviz_nbclust(cleaned_df3, kmeans, method = "wss")
+```
+
+The silhouette test for this new data frame shows 3 clusters as being
+optimal.
+
+```{r}
+fviz_nbclust(cleaned_df3, kmeans, method = "silhouette")
+```
+
+We are looking for the best variables to use when considering all the
+variables of interest.
+
+```{r}
+dfnew=as.data.frame(scale(df))
+predictors=dfnew[,-which(names(dfnew)=="afatal")]
+response=dfnew$afatal
+result=rfe(x=predictors, y = response, sizes=c(1:10), rfeControl = control, metric = "RMSE", method="cv")
+print(result)
+```
+
+We are checking for outliers in the new dataframe.
+
+```{r}
+dfnew=dfnew[-c(2)]
+boxplot(dfnew)
+```
+
+Here we are removing outliers again.
+
+```{r}
+column_names3=c('spirits','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
+cleaned_dfnew=elimination(dfnew,column_names3)
+boxplot(cleaned_dfnew)
+```
+
+Here is a correlation matrix showing the relationship between each
+variable
+
+```{r}
+model.matrix(~0+., data=cleaned_dfnew) %>% 
+  cor(use="pairwise.complete.obs") %>% 
+  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
+```
+
+In this graph, the optimal number of clusters is 6.
+
+```{r}
+fviz_nbclust(cleaned_dfnew, kmeans, method = "wss")
+```
+
+In this graph the optimal number of clusters is 4.
+
+```{r}
+fviz_nbclust(cleaned_dfnew, kmeans, method = "silhouette")
 ```
 
 ### Statistical Modeling
