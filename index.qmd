@@ -236,6 +236,46 @@ Equation 3.
 
 </center>
 
+Here is an outlline of our overall method:
+
+-   Preprocess the data
+
+    -   Convert Baptist and Mormon variables to from percentage to count
+
+    -   Check for NULL values
+
+    -   Remove outliers
+
+    -   scale the data
+
+-   Picking variables of interest
+
+    -   We will first create a new dataframe of variables of interest
+
+    -   Create two other dataframes utilizing Recursive Feature
+        Elimination
+
+-   Optimal number of clusters
+
+    -   The elbow method and Silhouette coefficient will be used to
+        determine the number of clusters
+
+-   Perform K-means clustering
+
+    -   The kmeans function from the stats package will be used and the
+        Hartigan-Wong alorgithm will be implemented
+
+    -   The clustering will be visualized and the between SS/ total SS
+        will be analyzed for the best fit
+
+-   Interpretation of clusters
+
+    -   A new clusters column is added to the original pre-scaled
+        dataframe
+
+    -   a summary table is created showcasing the average values within
+        each cluster to make interpretation easier
+
 ## Analysis and Results
 
 ### Data and Visualization
@@ -249,7 +289,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------|------------|------------------------------------------------|
+|---------------|---------------|-------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         |               | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
