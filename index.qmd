@@ -252,8 +252,9 @@ Here is an outlline of our overall method:
 
     -   We will first create a new dataframe of variables of interest
 
-    -   Create two other dataframes utilizing Recursive Feature
-        Elimination
+    -   Two more dataframes are created utilizing Recursive Feature
+        Elimination, the first is from the original dataset and the
+        second is from our variables of interest
 
 -   Optimal number of clusters
 
@@ -289,9 +290,9 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|---------------|---------------|-------------------------------------------|
+|--------------|---------------|--------------------------------------------------------------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
-| year         |               | The year is indicated by the categorical factor                                                        |
+| year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
 | unemp        | Continuous    | The unemployment rate expressed as a numerical value.                                                  |
 | income       | Continuous    | A numerical value in 1987 dollars that represents the per capita personal income.                      |
@@ -496,7 +497,7 @@ optimal.
 fviz_nbclust(cleaned_df3, kmeans, method = "silhouette")
 ```
 
-We are looking for the best variables to use when considering all the
+We are looking for the best variables to use when considering our
 variables of interest.
 
 ```{r}

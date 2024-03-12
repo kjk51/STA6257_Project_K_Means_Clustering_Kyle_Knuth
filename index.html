@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-04">
+<meta name="dcterms.date" content="2024-03-10">
 
 <title>Using K-Means Clustering to determine groupings of fatal car crashes</title>
 <style>
@@ -3256,7 +3256,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 4, 2024</p>
+      <p class="date">March 10, 2024</p>
     </div>
   </div>
   
@@ -3320,7 +3320,7 @@ WCSS(k)=\sum^k_{i=1}\sum_{x\in C_i}||x-\mu_i||^2
 <li><p>Picking variables of interest</p>
 <ul>
 <li><p>We will first create a new dataframe of variables of interest</p></li>
-<li><p>Create two other dataframes utilizing Recursive Feature Elimination</p></li>
+<li><p>Two more dataframes are created utilizing Recursive Feature Elimination, the first is from the original dataset and the second is from our variables of interest</p></li>
 </ul></li>
 <li><p>Optimal number of clusters</p>
 <ul>
@@ -3345,9 +3345,9 @@ WCSS(k)=\sum^k_{i=1}\sum_{x\in C_i}||x-\mu_i||^2
 <p>For our fatal car crash clustering, we are using the dataset from “Fatalities” from the AER R package which originally came from US Department of Transportation Fatal Accident Reporting System and is dated from 1982-1988. In addition, the income variable was obtained from the US Bureau of Economic Analysis and unemployment rate was obtained from the US Bureau of Labor Statistics. The data includes all the states except Alaska and Hawaii.</p>
 <table class="table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 58%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 55%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -3364,7 +3364,7 @@ WCSS(k)=\sum^k_{i=1}\sum_{x\in C_i}||x-\mu_i||^2
 </tr>
 <tr class="even">
 <td>year</td>
-<td></td>
+<td>Categorical</td>
 <td>The year is indicated by the categorical factor</td>
 </tr>
 <tr class="odd">
@@ -3900,7 +3900,7 @@ The top 5 variables (out of 17):
 </div>
 </div>
 </div>
-<p>We are looking for the best variables to use when considering all the variables of interest.</p>
+<p>We are looking for the best variables to use when considering our variables of interest.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
