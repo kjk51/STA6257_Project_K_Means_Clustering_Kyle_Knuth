@@ -3272,7 +3272,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <section id="what-is-k-means-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-k-means-clustering">What is “K-Means Clustering”?</h3>
-<p>K-means clustering is a form of unsupervised learning which uses “K” clusters with assigned data to create groups. The main goal of K-means clustering is to classify data within clusters, which are as similar as possible, while also keeping it out of clusters as dissimilar as possible <span class="citation" data-cites="sinaga2020unsupervised">(<a href="#ref-sinaga2020unsupervised" role="doc-biblioref">Sinaga and Yang 2020</a>)</span>. There are several methods of finding the optimal number of clusters, such as the Elbow method, Silhouette method, Gap statistic. The Silhouette method is used to visually find the number of clusters by using the silhouette coefficients. The silhouette coefficients can be between -1 and 1, where a value of 1 indicates the data is far from the neighboring cluster, a value of 0 means the data is close to the neighboring clusters and a value of -1 means the data was assigned to the wrong cluster <span class="citation" data-cites="song2023novel">(<a href="#ref-song2023novel" role="doc-biblioref">Song, Wang, and Pan 2023</a>)</span>. The Gap statistic finds the optimal number of clusters by comparing the within cluster dispersion changes to expected with a null dispersion <span class="citation" data-cites="tibshirani2001estimating">(<a href="#ref-tibshirani2001estimating" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span>.  The Elbow method consists of plotting the sum of squared error versus “K” numbers and wherever the slope kinks at indicates the optimal number of clusters <span class="citation" data-cites="syakur2018integration">(<a href="#ref-syakur2018integration" role="doc-biblioref">Syakur et al. 2018</a>)</span>.In addition to the standard preprocessing steps, the Canopy algorithm may also be utilized. The Canopy algorithm helps partion the data into smaller subsets in which k-means clustering is performed on each separate one to help reduce the computational complexity, and is best used for large and complex data sets and enhances the fault tolerance <span class="citation" data-cites="yuan2019research">(<a href="#ref-yuan2019research" role="doc-biblioref">Yuan and Yang 2019</a>)</span>. When it comes to smaller and less complex data-sets, the other methods are better.</p>
+<p>K-means clustering is a form of unsupervised learning which uses “K” clusters with assigned data to create groups. The main goal of K-means clustering is to classify data within clusters, which are as similar as possible, while also keeping it out of clusters as dissimilar as possible <span class="citation" data-cites="sinaga2020unsupervised">(<a href="#ref-sinaga2020unsupervised" role="doc-biblioref">Sinaga and Yang 2020</a>)</span>. There are several methods of finding the optimal number of clusters, such as the Elbow method, Silhouette method, Gap statistic. The Silhouette method is used to visually find the number of clusters by using the silhouette coefficients. The silhouette coefficients can be between -1 and 1, where a value of 1 indicates the data is far from the neighboring cluster, a value of 0 means the data is close to the neighboring clusters and a value of -1 means the data was assigned to the wrong cluster <span class="citation" data-cites="song2023novel">(<a href="#ref-song2023novel" role="doc-biblioref"><strong>song2023novel?</strong></a>)</span>. The Gap statistic finds the optimal number of clusters by comparing the within cluster dispersion changes to expected with a null dispersion <span class="citation" data-cites="tibshirani2001estimating">(<a href="#ref-tibshirani2001estimating" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span>.  The Elbow method consists of plotting the sum of squared error versus “K” numbers and wherever the slope kinks at indicates the optimal number of clusters <span class="citation" data-cites="syakur2018integration">(<a href="#ref-syakur2018integration" role="doc-biblioref">Syakur et al. 2018</a>)</span>.In addition to the standard preprocessing steps, the Canopy algorithm may also be utilized. The Canopy algorithm helps partion the data into smaller subsets in which k-means clustering is performed on each separate one to help reduce the computational complexity, and is best used for large and complex data sets and enhances the fault tolerance <span class="citation" data-cites="yuan2019research">(<a href="#ref-yuan2019research" role="doc-biblioref">Yuan and Yang 2019</a>)</span>. When it comes to smaller and less complex data-sets, the other methods are better.</p>
 <p>Once the amount of clusters has been determined, the quality of those clusters can be assessed. The Calinski-Harabasz criterion is used to determine the quality of the data and a higher value indicates the clusters are better separated <span class="citation" data-cites="qabbaah2019using">(<a href="#ref-qabbaah2019using" role="doc-biblioref">Qabbaah, Sammour, and Vanhoof 2019</a>)</span>. The original data set is partitioned into clusters which have common traits and each cluster has a cluster center which starts from seed points. Then the K-means clustering method calculates the distance between each data point and each cluster center and takes an nxd matrix and assigns the data randomly to those clusters <span class="citation" data-cites="javadi2017classification">(<a href="#ref-javadi2017classification" role="doc-biblioref">Javadi et al. 2017</a>)</span>. The data points are clustered by Euclidean distance of intensity values to the centroid, and a new centroid is then calculated and the previous steps are repeated until the labels of the clusters no longer change <span class="citation" data-cites="dubey2013infected">(<a href="#ref-dubey2013infected" role="doc-biblioref">Dubey et al. 2013</a>)</span>. The Euclidean distance formula is used to compute the distance between the object center and each centroid<span class="citation" data-cites="9320839">(<a href="#ref-9320839" role="doc-biblioref">Fahlevi et al. 2020</a>)</span>.</p>
 <p>One of the most important parts to make K-means clustering more efficient is to find the most optimal centroids as quickly as possible. A solution to this is to use principal component analysis to estimate the initial centroids rather than random selection <span class="citation" data-cites="zubair2022improved">(<a href="#ref-zubair2022improved" role="doc-biblioref">Zubair et al. 2022</a>)</span>. Basically this means, the process is looped over and over until there is a convergence and there are distinct clusters.</p>
 </section>
@@ -3293,34 +3293,40 @@ window.Quarto = {
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>The methodology behind k-means clustering involves preprocessing the data, picking variables of interest, determining the optimal number of clusters, performing the k-means clustering, and identifying what each cluster consists of. The data is typically preprocessed by first removing any categorical variables, then removing outliers, and finally performing feature scaling. Once the data has been preprocessed, variables of interest will be picked and then the optimal number of clusters will be determined. The first method of determining how many clusters to use is the Silhouette Coefficient.  The Silhouette Coefficient is used to measure how similar a data point is to its own cluster compared to other clusters based off a range of -1 to 1 where a more positive value means that the data is well placed within its cluster<span class="citation" data-cites="song2023novel">(<a href="#ref-song2023novel" role="doc-biblioref">Song, Wang, and Pan 2023</a>)</span>. The Silhouette Coefficient is shown below in equation 1:</p>
+<p>The methodology behind k-means clustering involves preprocessing the data, picking variables of interest, determining the optimal number of clusters, performing the k-means clustering, and identifying what each cluster consists of. The data is typically preprocessed by first removing any categorical variables, then removing outliers, and finally performing feature scaling. Once the data has been preprocessed, variables of interest will be picked and then the optimal number of clusters will be determined. The first method of determining how many clusters to use is the Silhouette Coefficient.  The Silhouette Coefficient is used to measure how similar a data point is to its own cluster compared to other clusters based off a range of -1 to 1 where a more positive value means that the data is well placed within its cluster<span class="citation" data-cites="shi2021quantitative">(<a href="#ref-shi2021quantitative" role="doc-biblioref">Shi et al. 2021</a>)</span>. The Silhouette Coefficient is shown below in equation 1:</p>
 <center>
-<span class="math display">\[S(x_i)=b(x_i)-a(x_i)/max\{b(x_i),\:a(x_i)\} \quad (1)\]</span>
+<span class="math display">\[S=b-a/max(b,\:a) \quad (1)\]</span>
 </center>
+<p>S: Silhouette coefficient</p>
 <p>a: the average distance from one data point to the other within the same cluster</p>
 <p>b: the minimum average distance from one point to points in other clusters</p>
-<p>The next method of determining how many clusters to use is the Elbow method. The Elbow method consists of plotting the within-cluster sum of squares against the number of clusters and visually selecting a point where the rate of decrease significantly slows down <span class="citation" data-cites="syakur2018integration">(<a href="#ref-syakur2018integration" role="doc-biblioref">Syakur et al. 2018</a>)</span>]. The Elbow method is shown below in equation 2:</p>
+<p>The next method of determining how many clusters to use is the Elbow method. The Elbow method consists of plotting the within-cluster sum of squares against the number of clusters and visually selecting a point where the rate of decrease significantly slows down <span class="citation" data-cites="shi2021quantitative">(<a href="#ref-shi2021quantitative" role="doc-biblioref">Shi et al. 2021</a>)</span>. The Elbow method is shown below in equation 2:</p>
 <center>
 <span class="math display">\[
-SSE=\sum^K_{K=1}\sum_{x_i\in S_K}||x_i-C_k||_2^2 \quad (2)
+WCSS=\sum^K_{k=1}\sum_{x_i=C_k}x_i-\mu^2_{k2} \quad (2)
 \]</span>
 </center>
-<p>x: data present in the cluster</p>
-<p>C<sub>K</sub>: Kth cluster</p>
-<p>K: number of clusters</p>
+<p>WCSS: within-cluster sum of squares</p>
+<p>x: data point in the cluster</p>
+<p>C<sub>K</sub>: the current individual cluster</p>
+<p>K: number of total clusters</p>
+<p><span class="math inline">\(\mu_k\)</span> : centroids corresponding to the cluster</p>
 <p>The final method in determining how many clusters to use is the Gap statistic. This method finds the optimal number of clusters by comparing the within cluster dispersion changes to expected with a null dispersion<span class="citation" data-cites="tibshirani2001estimating">(<a href="#ref-tibshirani2001estimating" role="doc-biblioref">Tibshirani, Walther, and Hastie 2001</a>)</span>. The Gap statistic is shown in equation 3:</p>
 <center>
-<p><span class="math display">\[
-Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
-\]</span></p>
+<span class="math display">\[
+Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k) \quad (3)
+\]</span>
 </center>
+<p>Gap<sub>n</sub>(k): Gap statistic</p>
 <p>E*n: expectation of sample size</p>
 <p>n: sample size</p>
 <p>k: number of clusters</p>
+<p>W<sub>K</sub>:within-cluster sum of squares surrounding cluster means</p>
 <p>The distance metric used for these methods is Euclidean distance. Euclidean distance is defined as the straight line distance between two points <span class="citation" data-cites="ultsch2022euclidean">(<a href="#ref-ultsch2022euclidean" role="doc-biblioref">Ultsch and Lötsch 2022</a>)</span>. The Euclidean distance is shown in equation 4:</p>
 <center>
-<span class="math display">\[d(x,y)=\sqrt{\sum|x_i-y_i|^2} \quad (3)\]</span>
+<span class="math display">\[d(x,y)=\sqrt{\sum|x_i-y_i|^2} \quad (4)\]</span>
 </center>
+<p>d(x,y): Euclidean distance</p>
 <p>x: x-coordinate point</p>
 <p>y: y-coordinate point</p>
 <p>The actual method of k-means clustering is an iterative process consisting of the following steps <span class="citation" data-cites="9320839">(<a href="#ref-9320839" role="doc-biblioref">Fahlevi et al. 2020</a>)</span>:</p>
@@ -3346,9 +3352,9 @@ Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
 <p>For our fatal car crash clustering, we are using the dataset from “Fatalities” from the AER R package which originally came from US Department of Transportation Fatal Accident Reporting System and is dated from 1982-1988. In addition, the income variable was obtained from the US Bureau of Economic Analysis and unemployment rate was obtained from the US Bureau of Labor Statistics. The data includes all the states except Alaska and Hawaii.</p>
 <table class="table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 49%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 66%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -3545,28 +3551,26 @@ Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;googlesheets4&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;cluster&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;factoextra&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;DescTools&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;isofor&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;missForest&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;AER&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;caret&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(missForest)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waterfalls)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4) </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Fatalities&quot;</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span>Fatalities</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>df3<span class="ot">=</span>Fatalities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;isofor&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;missForest&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;AER&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;caret&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(missForest)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fpc)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waterfalls)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4) </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Fatalities&quot;</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span>Fatalities</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df3<span class="ot">=</span>Fatalities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -4351,11 +4355,11 @@ Qabbaah, Hamzah, George Sammour, and Koen Vanhoof. 2019. <span>“Using k-Means 
 <div id="ref-raykov2016k" class="csl-entry" role="listitem">
 Raykov, Yordan P, Alexis Boukouvalas, Fahd Baig, and Max A Little. 2016. <span>“What to Do When k-Means Clustering Fails: A Simple yet Principled Alternative Algorithm.”</span> <em>PloS One</em> 11 (9): e0162259.
 </div>
+<div id="ref-shi2021quantitative" class="csl-entry" role="listitem">
+Shi, Congming, Bingtao Wei, Shoulin Wei, Wen Wang, Hai Liu, and Jialei Liu. 2021. <span>“A Quantitative Discriminant Method of Elbow Point for the Optimal Number of Clusters in Clustering Algorithm.”</span> <em>Eurasip Journal on Wireless Communications and Networking</em> 2021: 1–16.
+</div>
 <div id="ref-sinaga2020unsupervised" class="csl-entry" role="listitem">
 Sinaga, Kristina P, and Miin-Shen Yang. 2020. <span>“Unsupervised k-Means Clustering Algorithm.”</span> <em>IEEE Access</em> 8: 80716–27.
-</div>
-<div id="ref-song2023novel" class="csl-entry" role="listitem">
-Song, Wenwen, Yang Wang, and Zhibin Pan. 2023. <span>“A Novel Cell Partition Method by Introducing Silhouette Coefficient for Fast Approximate Nearest Neighbor Search.”</span> <em>Information Sciences</em> 642: 119216.
 </div>
 <div id="ref-strutz2022determining" class="csl-entry" role="listitem">
 Strutz, Kelly L, Zhehui Luo, Jennifer E Raffo, Cristian I Meghea, Peggy Vander Meulen, and Lee Anne Roman. 2022. <span>“Determining County-Level Counterfactuals for Evaluation of Population Health Interventions: A Novel Application of k-Means Cluster Analysis.”</span> <em>Public Health Reports</em> 137 (5): 849–59.

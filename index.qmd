@@ -191,10 +191,12 @@ clusters to use is the Silhouette Coefficient.  The Silhouette
 Coefficient is used to measure how similar a data point is to its own
 cluster compared to other clusters based off a range of -1 to 1 where a
 more positive value means that the data is well placed within its
-cluster[@song2023novel]. The Silhouette Coefficient is shown below in
-equation 1:
+cluster[@shi2021quantitative]. The Silhouette Coefficient is shown below
+in equation 1:
 
-<center>$$S(x_i)=b(x_i)-a(x_i)/max\{b(x_i),\:a(x_i)\} \quad (1)$$</center>
+<center>$$S=b-a/max(b,\:a) \quad (1)$$</center>
+
+S: Silhouette coefficient
 
 a: the average distance from one data point to the other within the same
 cluster
@@ -206,18 +208,21 @@ The next method of determining how many clusters to use is the Elbow
 method. The Elbow method consists of plotting the within-cluster sum of
 squares against the number of clusters and visually selecting a point
 where the rate of decrease significantly slows down
-[@syakur2018integration]\]. The Elbow method is shown below in equation
-2:
+[@shi2021quantitative]. The Elbow method is shown below in equation 2:
 
 <center>$$
-SSE=\sum^K_{K=1}\sum_{x_i\in S_K}||x_i-C_k||_2^2 \quad (2)
+WCSS=\sum^K_{k=1}\sum_{x_i=C_k}x_i-\mu^2_{k2} \quad (2)
 $$</center>
 
-x: data present in the cluster
+WCSS: within-cluster sum of squares
 
-C~K~: Kth cluster
+x: data point in the cluster
 
-K: number of clusters
+C~K~: the current individual cluster
+
+K: number of total clusters
+
+$\mu_k$ : centroids corresponding to the cluster
 
 The final method in determining how many clusters to use is the Gap
 statistic. This method finds the optimal number of clusters by comparing
@@ -225,13 +230,11 @@ the within cluster dispersion changes to expected with a null
 dispersion[@tibshirani2001estimating]. The Gap statistic is shown in
 equation 3:
 
-<center>
+<center>$$
+Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k) \quad (3)
+$$</center>
 
-$$
-Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
-$$
-
-</center>
+Gap~n~(k): Gap statistic
 
 E\*n: expectation of sample size
 
@@ -239,12 +242,16 @@ n: sample size
 
 k: number of clusters
 
+W~K~:within-cluster sum of squares surrounding cluster means
+
 The distance metric used for these methods is Euclidean distance.
 Euclidean distance is defined as the straight line distance between two
 points [@ultsch2022euclidean]. The Euclidean distance is shown in
 equation 4:
 
-<center>$$d(x,y)=\sqrt{\sum|x_i-y_i|^2} \quad (3)$$</center>
+<center>$$d(x,y)=\sqrt{\sum|x_i-y_i|^2} \quad (4)$$</center>
+
+d(x,y): Euclidean distance
 
 x: x-coordinate point
 
@@ -291,7 +298,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------------|------------------|-----------------------------------|
+|------------|------------|------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -340,7 +347,6 @@ install.packages("corrplot", repos = "http://cran.us.r-project.org")
 install.packages("googlesheets4", repos = "http://cran.us.r-project.org")
 install.packages("cluster", repos = "http://cran.us.r-project.org")
 install.packages("factoextra", repos = "http://cran.us.r-project.org")
-install.packages("DescTools", repos = "http://cran.us.r-project.org")
 install.packages("isofor", repos = "http://cran.us.r-project.org")
 install.packages("missForest", repos = "http://cran.us.r-project.org")
 install.packages("AER", repos = "http://cran.us.r-project.org")
@@ -349,7 +355,6 @@ library(caret)
 library(AER)
 library(e1071)
 library(missForest)
-library(DescTools)
 library(MASS)
 library(fpc)
 library(cluster)
