@@ -37,12 +37,12 @@ the number of clusters by using the silhouette coefficients. The
 silhouette coefficients can be between -1 and 1, where a value of 1
 indicates the data is far from the neighboring cluster, a value of 0
 means the data is close to the neighboring clusters and a value of -1
-means the data was assigned to the wrong cluster. The Gap statistic
-finds the optimal number of clusters by comparing the within cluster
-dispersion changes to expected with a null dispersion
+means the data was assigned to the wrong cluster [@song2023novel]. The
+Gap statistic finds the optimal number of clusters by comparing the
+within cluster dispersion changes to expected with a null dispersion
 [@tibshirani2001estimating].  The Elbow method consists of plotting the
 sum of squared error versus “K” numbers and wherever the slope kinks at
-indicates the optimal number of clusters [@lee2022identifying].In
+indicates the optimal number of clusters [@syakur2018integration].In
 addition to the standard preprocessing steps, the Canopy algorithm may
 also be utilized. The Canopy algorithm helps partion the data into
 smaller subsets in which k-means clustering is performed on each
@@ -179,103 +179,104 @@ to be pre-processed very carefully due to its scalability. 
 
 ## Methods
 
-The methodology behind this analysis involves preprocessing the data,
-picking variables of interest, determining the optimal number of
+The methodology behind k-means clustering involves preprocessing the
+data, picking variables of interest, determining the optimal number of
 clusters, performing the k-means clustering, and identifying what each
-cluster consists of. In order to make the data better suited for our
-needs we will convert the Baptist and Mormon variables from a percentage
-to a count using the "pop" variable. Afterwards a new dataframe
-consisting variables of interest such as spirits, baptist, mormon,
-fatal1517, fatal1820, fatal2124, and afatal, will be created and scaled.
-In addition, Recursive Feature Elimination will be used to find
-variables from the original dataframe to run our analysis on as well as
-on our chosen variables. Overall we will be running k-means clustering
-on three dataframes and collecting valuable insights from it. Next, the
-Elbow method and Silhouette coefficient will be used to determine the
-optimum number of clusters. The Silhouette Coefficient (equation 1) is
-used to measure how similar a data point is to its own cluster compared
-to other clusters based off a range of -1 to 1. A more positive values
-means that the data is well placed within its cluster. In equation 1, a
-is the average distance from data point to the other data points within
-the same cluster and b is the minimum average distance from one point to
-points in other clusters. The Elbow Method (equation 2) consists of
-plotting the within-cluster sum of squares against the number of
-clusters and visually selecting a point where where the rate of decrease
-significantly slows down. In equation 2, k is the number of clusters, C
-is the ith cluster, and \|\|x-mu\|\|\^2 is the squared Euclidean
-distance. The Euclidean distance (equation 3) is the straight line
-distance between two points where p and q are the points in an
-n-dimensional space and n is the number of dimensions. Once the optimal
-number of clusters is determined, k-means clustering will be performed
-on each data frame and insights will be made based on the assignment of
-clusters.
+cluster consists of. The data is typically preprocessed by first
+removing any categorical variables, then removing outliers, and finally
+performing feature scaling. Once the data has been preprocessed,
+variables of interest will be picked and then the optimal number of
+clusters will be determined. The first method of determining how many
+clusters to use is the Silhouette Coefficient.  The Silhouette
+Coefficient is used to measure how similar a data point is to its own
+cluster compared to other clusters based off a range of -1 to 1 where a
+more positive value means that the data is well placed within its
+cluster[@song2023novel]. The Silhouette Coefficient is shown below in
+equation 1:
 
-<center>
+<center>$$S(x_i)=b(x_i)-a(x_i)/max\{b(x_i),\:a(x_i)\} \quad (1)$$</center>
 
-$$s=b-a/{max(a,b)}$$
+a: the average distance from one data point to the other within the same
+cluster
 
-Equation 1.
+b: the minimum average distance from one point to points in other
+clusters
 
-</center>
+The next method of determining how many clusters to use is the Elbow
+method. The Elbow method consists of plotting the within-cluster sum of
+squares against the number of clusters and visually selecting a point
+where the rate of decrease significantly slows down
+[@syakur2018integration]\]. The Elbow method is shown below in equation
+2:
+
+<center>$$
+SSE=\sum^K_{K=1}\sum_{x_i\in S_K}||x_i-C_k||_2^2 \quad (2)
+$$</center>
+
+x: data present in the cluster
+
+C~K~: Kth cluster
+
+K: number of clusters
+
+The final method in determining how many clusters to use is the Gap
+statistic. This method finds the optimal number of clusters by comparing
+the within cluster dispersion changes to expected with a null
+dispersion[@tibshirani2001estimating]. The Gap statistic is shown in
+equation 3:
 
 <center>
 
 $$
-WCSS(k)=\sum^k_{i=1}\sum_{x\in C_i}||x-\mu_i||^2
+Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
 $$
 
-Equation 2.
-
 </center>
 
-<center>
+E\*n: expectation of sample size
 
-$$d(p,q)=\sqrt{\sum^n_{i=1}(q_i-p_i)^2}$$
+n: sample size
 
-Equation 3.
+k: number of clusters
 
-</center>
+The distance metric used for these methods is Euclidean distance.
+Euclidean distance is defined as the straight line distance between two
+points [@ultsch2022euclidean]. The Euclidean distance is shown in
+equation 4:
 
-Here is an outlline of our overall method:
+<center>$$d(x,y)=\sqrt{\sum|x_i-y_i|^2} \quad (3)$$</center>
 
--   Preprocess the data
+x: x-coordinate point
 
-    -   Convert Baptist and Mormon variables to from percentage to count
+y: y-coordinate point
 
-    -   Check for NULL values
+The actual method of k-means clustering is an iterative process
+consisting of the following steps [@9320839]:
 
-    -   Remove outliers
+-   Determine the number of clusters
 
-    -   scale the data
+-   Randomly select an initial centroid
 
--   Picking variables of interest
+-   Using Euclidean distance, data is assigned to clusters in accordance
+    to the distance of the centroids
 
-    -   We will first create a new dataframe of variables of interest
+-   A new centroid is recalculated based on the mean of the previous
+    centroids.
 
-    -   Two more dataframes are created utilizing Recursive Feature
-        Elimination, the first is from the original dataset and the
-        second is from our variables of interest
+-   All the previous steps are repeated until the mean of the centroids
+    no longer changes
 
--   Optimal number of clusters
+The assumptions of k-means clustering are as follows [@raykov2016k]:
 
-    -   The elbow method and Silhouette coefficient will be used to
-        determine the number of clusters
+-   The data is in a sphere around the centroid and each sphere has the
+    same radius
 
--   Perform K-means clustering
+-   The average of the points in a cluster is the centroid of the
+    cluster meaning that outliers will dramitically affect clustering 
 
-    -   The kmeans function from the stats package will be used and the
-        Hartigan-Wong alorgithm will be implemented
+-   The density of each cluster is consistent
 
-    -   The clustering will be visualized and the between SS/ total SS
-        will be analyzed for the best fit
-
--   Interpretation of clusters
-
-    -   A new clusters column is added to the original pre-scaled
-        dataframe
-
-    -   a summary table is created showcasing the average values within
-        each cluster to make interpretation easier
+-   The number of clusters is known and fixed
 
 ## Analysis and Results
 
@@ -290,7 +291,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------------|------------------|-------------------------------------|
+|------------------|------------------|-----------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -430,6 +431,12 @@ Here we are using the Silhouette method which shows 6 or 10 clusters.
 fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
 ```
 
+Here is the Gap statistic showing 6 clusters.
+
+```{r}
+fviz_nbclust(cleaned_df2, kmeans, method = "gap_stat")
+```
+
 For this next part we are using Recursive Feature Elimination to
 determine which variables to keep based off a response variable. In this
 case we are interested in the number of vehicle fatalities that involved
@@ -490,6 +497,12 @@ being optimal.
 fviz_nbclust(cleaned_df3, kmeans, method = "silhouette")
 ```
 
+Here the Gap statistic is showing 5, 6, and 7 clusters.
+
+```{r}
+fviz_nbclust(cleaned_df3, kmeans, method = "gap_stat")
+```
+
 We are looking for the best variables to use when considering our
 variables of interest.
 
@@ -536,6 +549,12 @@ In this graph the optimal number of clusters is 5 or 6.
 
 ```{r}
 fviz_nbclust(cleaned_dfnew, kmeans, method = "silhouette")
+```
+
+Here the Gap statistic is showing 5 clusters.
+
+```{r}
+fviz_nbclust(cleaned_dfnew, kmeans, method = "gap_stat")
 ```
 
 ### Modeling With K-Means Clustering
