@@ -9,7 +9,7 @@ authors:
 date: 'today'
 format:
   html:
-    code-fold: true
+    code-fold: False
 course: STA 6257 - Advanced Statistical Modeling
 bibliography: references.bib # file contains bibtex for references
 #always_allow_html: true # this allows to get PDF with HTML features
@@ -37,8 +37,8 @@ the number of clusters by using the silhouette coefficients. The
 silhouette coefficients can be between -1 and 1, where a value of 1
 indicates the data is far from the neighboring cluster, a value of 0
 means the data is close to the neighboring clusters and a value of -1
-means the data was assigned to the wrong cluster [@song2023novel]. The
-Gap statistic finds the optimal number of clusters by comparing the
+means the data was assigned to the wrong cluster [@shi2021quantitative].
+The Gap statistic finds the optimal number of clusters by comparing the
 within cluster dispersion changes to expected with a null dispersion
 [@tibshirani2001estimating].  The Elbow method consists of plotting the
 sum of squared error versus “K” numbers and wherever the slope kinks at
@@ -298,7 +298,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------|------------|------------------------------------------------|
+|---------------|---------------|-------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -351,6 +351,8 @@ install.packages("isofor", repos = "http://cran.us.r-project.org")
 install.packages("missForest", repos = "http://cran.us.r-project.org")
 install.packages("AER", repos = "http://cran.us.r-project.org")
 install.packages("caret", repos = "http://cran.us.r-project.org")
+install.packages("psych", repos = "http://cran.us.r-project.org")
+library(psych)
 library(caret)
 library(AER)
 library(e1071)
@@ -369,15 +371,13 @@ df=Fatalities
 df3=Fatalities
 ```
 
-```{r}
-summary(df)
-```
-
-This code block converts the percentage of Baptists and Mormons to a
-count as well as picks the variables of interest such as spirits
-consumption, the amount of baptist, the amount of mormons, the age range
-of fatal car crashes, and alcohol related car crashes. In addition, we
-check for any missing data
+We plan to conduct our analysis on a chosen dataset as shown below. We
+convert the percentage of Baptists and Mormons to a count as well as
+pick our variables of interest such as spirits consumption, the amount
+of baptist, the amount of mormons, the age range of fatal car crashes,
+and alcohol related car crashes. These variables were chosen to observe
+the relationship between alcohol consumption and religion in regards to
+fatal car crashes.
 
 ```{r}
 df$baptist=df$baptist/100
@@ -385,16 +385,29 @@ df$mormon=df$mormon/100
 df$baptist=df$baptist*df$pop
 df$mormon=df$mormon*df$pop
 df=df[c(3,8,9,20,22,24,26)]
-sum(is.na(df))
+describe(df)
 ```
+
+We also check to see if there are any missing or null values in our data
+and there does not appear to be any.
 
 ```{r}
-sum(is.null(df))
+print(c(sum(is.na(df)),sum(is.null(df))))
 ```
 
-Here we check for outliers and scale the data. Although k-means is
-sensitive to outliers, we will keep these outliers be we believe they
-are not true outliers.
+As shown in the boxplot below there are some outliers that need to be
+removed in our dataset.
+
+```{r}
+boxplot(df)
+```
+
+Next, we first check if there are any outliers in our data and remove
+them before scaling the data. We need to remove the outliers since it
+can affect the centroid in the k-means clsutering process. In addition,
+the data needs to be scaled since k-means clustering is reliant on
+Euclidean distance and a large difference in values can adversly affect
+it.
 
 ```{r}
 detection=function(x) {
@@ -414,66 +427,86 @@ cleaned_df2=as.data.frame(scale(cleaned_df_2))
 boxplot(cleaned_df2)
 ```
 
-In this code block we examine the correlation between each variable.
-
-```{r}
-model.matrix(~0+., data=cleaned_df2) %>% 
-  cor(use="pairwise.complete.obs") %>% 
-  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
-
-```
-
-Here, we are checking for the optimal number of clusters using the elbow
-method. According to this it could 6 clusters.
+The next step in our analysis is to figure how many clusters to use. The
+elbow method is performed and as shown by the graph, the optimal number
+of clusters is 6.
 
 ```{r}
 fviz_nbclust(cleaned_df2, kmeans, method = "wss")
 ```
 
-Here we are using the Silhouette method which shows 6 or 10 clusters.
+Another method to determine the optimal number of clusters is finding
+the Silhouette Coefficient. According to this graph the optimal number
+of clusters could be either 10 or 6. These numbers were chosen since
+they are the closest to 1.
 
 ```{r}
 fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
 ```
 
-Here is the Gap statistic showing 6 clusters.
+Lastly we are using the gap statistic as a final check to determine the
+best number of clusters. This graph also shows 6 clusters as being the
+most optimal.
 
 ```{r}
 fviz_nbclust(cleaned_df2, kmeans, method = "gap_stat")
 ```
 
-For this next part we are using Recursive Feature Elimination to
-determine which variables to keep based off a response variable. In this
-case we are interested in the number of vehicle fatalities that involved
-alcohol.
+For this first dataframe, all three methods seem to agree that the
+optimal number of clusters to use is 6.
+
+# Recursive Feature Elimination
+
+For the next step in our analysis we are using Recursive Feature
+Elimination (RFE) to determine which variables to keep based off a
+response variable. RFE will help find the best combination of variables
+to use based off a limited version of the Fatalities dataset. The
+limited Fatalities dataset only includes numerical variables and
+fatality variables related to age and alcohol since the other fatality
+variables would be too similar. We are also removing the population
+variables. In this case we are interested in the number of vehicle
+fatalities that involved alcohol.
+
+For this part of the analysis we are checking for any missing and null
+values in the dataset. There appears to be two missing values in the
+dataset so we will remove them.
 
 ```{r}
-sum(is.na(df3))
+print(c(sum(is.na(df3)),sum(is.null(df3))))
 ```
 
 ```{r}
 df3=na.omit(df3)
 ```
 
+According to recursive feature elimination, the 5 best variables to use
+in relation to "afatal" from this dataset are "fatal1517", "fatal1820",
+"fatal2124", "mormon", and "baptist".
+
 ```{r}
-#We are only keeping numerical variables and only keeping the fatality variables related to age and alcohol since the other fatality variables are too similar. We are also getting rid of the population variables.
 df3$baptist=df3$baptist/100
 df3$mormon=df3$mormon/100
 df3$baptist=df3$baptist*df3$pop
 df3$mormon=df3$mormon*df3$pop
 df3=df3[-c(1,2,14,15,16,17,18,19,21,23,25,27,28,29,30,31)]
 
-control=rfeControl(functions = rfFuncs, method = "cv", number=10)
+control=rfeControl(functions = rfFuncs, method = "cv", number = 10)
 predictors=df3[,-which(names(df3)=="afatal")]
 response=df3$afatal
-result=rfe(x=predictors, y = response, sizes=c(1:10), rfeControl = control, metric = "RMSE", method="cv")
+result=rfe(x=predictors, y = response, sizes=18, rfeControl = control, metric = "RMSE", method="cv")
 print(result)
 ```
+
+Based off the RFE analysis we created a new dataframe using those
+variables.
 
 ```{r}
 df3=df3[c(6,7,12,13,14,15)]
 boxplot(df3)
 ```
+
+As done previously, all outliers are removed and the dataframe is
+scaled.
 
 ```{r}
 column_names2=c('baptist','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
@@ -482,51 +515,56 @@ cleaned_df3=as.data.frame(scale(cleaned_df_3))
 boxplot(cleaned_df3)
 ```
 
-```{r}
-model.matrix(~0+., data=cleaned_df3) %>% 
-  cor(use="pairwise.complete.obs") %>% 
-  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
-```
-
-The elbow test for this new dataframe shows the optimal number of
-clusters at 5.
+Again, elbow method is used and it appears the optimal number of
+clusters for this new dataframe is 5.
 
 ```{r}
 fviz_nbclust(cleaned_df3, kmeans, method = "wss")
 ```
 
-The silhouette test for this new data frame shows 5 or 9 clusters as
+The silhouette method for this new data frame shows 5 or 9 clusters as
 being optimal.
 
 ```{r}
 fviz_nbclust(cleaned_df3, kmeans, method = "silhouette")
 ```
 
-Here the Gap statistic is showing 5, 6, and 7 clusters.
+Finally, the Gap statistic is showing 5, 6, and 7 clusters as being
+optimal.
 
 ```{r}
 fviz_nbclust(cleaned_df3, kmeans, method = "gap_stat")
 ```
 
-We are looking for the best variables to use when considering our
-variables of interest.
+Overall it appears that the best number of clusters according to all
+three methods is 5 clusters.
+
+# Using RFE on our chosen variables
+
+For the final step before clustering the data, we are perfomring RFE on
+our original chosen variables.We are looking for the best variables to
+use when considering our variables of interest. According to RFE, the 5
+best variables to use in relation to "afatal" from this dataset are
+"fatal1517", "fatal1820", "fatal2124", "mormon".
 
 ```{r}
 dfnew=df
-predictors=dfnew[,-which(names(dfnew)=="afatal")]
-response=dfnew$afatal
-result=rfe(x=predictors, y = response, sizes=c(1:10), rfeControl = control, metric = "RMSE", method="cv")
-print(result)
+predictors2=dfnew[,-which(names(dfnew)=="afatal")]
+response2=dfnew$afatal
+result2=rfe(x=predictors, y = response, sizes=7, rfeControl = control, metric = "RMSE", method="cv")
+print(result2)
 ```
 
-We are checking for outliers in the new dataframe.
+We created a new dataframe based off of RFE and created a boxplot as
+shown below.
 
 ```{r}
 dfnew=dfnew[-c(2)]
 boxplot(dfnew)
 ```
 
-Here we are removing outliers again.
+We are again removing any outliers and scaling the data from our last
+dataframe.
 
 ```{r}
 column_names3=c('spirits','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
@@ -535,39 +573,42 @@ cleaned_dfnew=as.data.frame(scale(cleaned_df_new))
 boxplot(cleaned_dfnew)
 ```
 
-Here is a correlation matrix showing the relationship between each
-variable
-
-```{r}
-model.matrix(~0+., data=cleaned_dfnew) %>% 
-  cor(use="pairwise.complete.obs") %>% 
-  ggcorrplot(show.diag=FALSE, type="lower", lab=TRUE, lab_size=1)
-```
-
-In this graph, the optimal number of clusters is 6.
+As shown by the elbow method, the optimal number of clusters is 6.
 
 ```{r}
 fviz_nbclust(cleaned_dfnew, kmeans, method = "wss")
 ```
 
-In this graph the optimal number of clusters is 5 or 6.
+In this graph using the Silhouette method, the optimal number of
+clusters is 5.
 
 ```{r}
 fviz_nbclust(cleaned_dfnew, kmeans, method = "silhouette")
 ```
 
-Here the Gap statistic is showing 5 clusters.
+Lastly, the Gap statistic is showing 5 clusters as being optimal.
 
 ```{r}
 fviz_nbclust(cleaned_dfnew, kmeans, method = "gap_stat")
 ```
 
+Overall for this last dataframe, the optimal number of clusters is 5 as
+shown by all three methods.
+
 ### Modeling With K-Means Clustering
+
+Now we are using our selected number of clusters for each respective
+dataframe to perform k-means clustering. The plot below shows clustering
+for our first dataframe consisting of our variables of interest.
 
 ```{r}
 km <- kmeans(cleaned_df2, centers= 6, nstart = 25)
 fviz_cluster(km, data = cleaned_df2)
 ```
+
+Using between sum of squares divided by the total sum of squares as a
+metric of best fit for our clusters, our first k-means clustering
+analysis shows 77.2%
 
 ```{r}
 km
@@ -578,18 +619,26 @@ km2 <- kmeans(cleaned_df3, centers= 5, nstart = 25)
 fviz_cluster(km2, data = cleaned_df3)
 ```
 
+As for our second dataframe, it has a between ss/ total ss of 80.7%.
+
 ```{r}
 km2
 ```
 
 ```{r}
-km3 <- kmeans(cleaned_dfnew, centers= 6, nstart = 25)
+km3 <- kmeans(cleaned_dfnew, centers= 5, nstart = 25)
 fviz_cluster(km3, data = cleaned_dfnew)
 ```
+
+Finally, the between ss/ total ss for our final dataframe is 74.9%
 
 ```{r}
 km3
 ```
+
+# Results
+
+After performing k-means clustering....
 
 ```{r}
 cleaned_df_2$cluster=km$cluster
