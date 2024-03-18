@@ -569,10 +569,9 @@ Cluster 6:
 
 ### Cluster analysis (by variable)
 
-In this first chart it is shown that cluster 3 had the highest number of
+In this first chart it is shown that cluster 4 had the highest number of
 car crash fatalities related to alcohol while cluster 2 had the lowest
-amount. Cluster 4 had the second highest while clusters 1, 5, and 6 all
-had similar amounts.
+amount. Cluster 3 had the second highest amount.
 
 ```{r}
 y=clustertable2$cluster
@@ -582,13 +581,13 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Afatal", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Afatal")
 
 ```
 
 In this next chart, cluster 5 had the highest number of alcohol consumed
-while clusters 1 and 3 had the lowest number. The second highest was
-cluster 2.
+while clusters 1 had the lowest amount. The second highest was cluster
+2.
 
 ```{r}
 y=clustertable2$cluster
@@ -598,11 +597,13 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Spirits", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Spirits")
 
 ```
 
-As shown below,
+As shown below, cluster 3 had the highest population of Baptists while
+cluster 1 had the lowest amount. The rest of the clusters had similar
+populations of Baptist.
 
 ```{r}
 y=clustertable2$cluster
@@ -612,9 +613,12 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Baptist", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Baptist")
 
 ```
+
+In this chart, cluster 6 had the highest population of Mormons and
+cluster 2 had the lowest population.
 
 ```{r}
 y=clustertable2$cluster
@@ -624,9 +628,12 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Mormon", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Mormon")
 
 ```
+
+The highest number of fatal car crashes in the age range of 15 to 17
+occurred in cluster 4 while the lowest number was in cluster 2.
 
 ```{r}
 y=clustertable2$cluster
@@ -636,9 +643,12 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Fatal1517", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Fatal1517")
 
 ```
+
+The highest number of fatal car crashes in the age range of 18 to 20
+occurred in cluster 4 while the lowest number was in cluster 2.
 
 ```{r}
 y=clustertable2$cluster
@@ -648,9 +658,12 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Fatal1820", x = "Cluster", y = "Value")
+  labs(x = "Cluster", y = "Fatal1820")
 
 ```
+
+Lastly, the highest number of fatal car crashes in the age range of 21
+to 24 occurred in cluster 4 while the lowest number was in cluster 2.
 
 ```{r}
 y=clustertable2$cluster
@@ -660,18 +673,7 @@ data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(title = "Fatal2124", x = "Cluster", y = "Value")
-
-```
-
-applying clusters to full dataset to make inferences
-
-```{r}
-subset_df <- df1[rownames(df1) %in% rownames(cleaned_df_2), ]
-subset_df$cluster=km$cluster
-```
-
-```{r}
+  labs(x = "Cluster", y = "Fatal2124")
 
 ```
 
