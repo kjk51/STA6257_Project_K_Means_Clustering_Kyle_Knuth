@@ -298,12 +298,12 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|-----------------|-----------------|--------------------------------------|
+|--------------|---------------|--------------------------------------------------------------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
 | unemp        | Continuous    | The unemployment rate expressed as a numerical value.                                                  |
-| income       | Continuous    | A numerical value in 1987 dollars that represents the per capita personal income.                      |
+| income       | Continuous    | A numerical value in dollars that represents the per capita personal income.                           |
 | emppop       | Continuous    | The employment to population ratio expressed as a numerical value.                                     |
 | beertax      | Continuous    | The tax on a case of beer expressed as a numerical value.                                              |
 | baptist      | Continuous    | A number that indicates the proportion of Southern Baptists in the general population.                 |
@@ -384,9 +384,9 @@ head(df)
 We plan to conduct our analysis on a chosen dataset as shown below. We
 convert the percentage of Baptists and Mormons to a count as well as
 pick our variables of interest such as spirits consumption, the amount
-of baptist, the amount of mormons, the age range of fatal car crashes,
-and alcohol related car crashes. These variables were chosen to observe
-the relationship between alcohol consumption and religion in regards to
+of Baptists, the amount of Mormons, the amount the alcohol is taxed, and
+alcohol related car crashes. These variables were chosen to observe the
+relationship between alcohol consumption and religion in regards to
 fatal car crashes.
 
 ```{r}
@@ -394,7 +394,7 @@ df$baptist=df$baptist/100
 df$mormon=df$mormon/100
 df$baptist=df$baptist*df$pop
 df$mormon=df$mormon*df$pop
-df=df[c(3,8,9,20,22,24,26)]
+df=df[c(3,7,8,9,26)]
 describe(df)
 ```
 
@@ -430,7 +430,7 @@ elimination= function(df,cols=names(df)) {
   for(col in cols) { 
     df=df[!detection(df[[col]]),]}
   return(df)} 
-column_names=c('spirits','baptist','mormon', 'fatal1517','fatal1820', 'fatal2124', 'afatal')
+column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
 df2=df
 cleaned_df_2=elimination(df2,column_names)
 cleaned_df2=as.data.frame(scale(cleaned_df_2))
@@ -450,7 +450,7 @@ fviz_nbclust(cleaned_df2, kmeans, method = "wss")
 Another method to determine the optimal number of clusters is finding
 the Silhouette Coefficient. According to this graph the optimal number
 of clusters could be either 10 or 6. These numbers were chosen since
-they are the closest to 1.
+they are the closest to 1 for average silhouette width.
 
 ```{r}
 fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
@@ -480,7 +480,7 @@ fviz_cluster(km, data = cleaned_df2)
 
 Using between sum of squares divided by the total sum of squares as a
 metric of best fit for our clusters, our first k-means clustering
-analysis shows 77.2%
+analysis shows 71.4%
 
 ```{r}
 km
@@ -510,68 +510,61 @@ print(clustertable2)
 ### Cluster analysis (average)
 
 The standardized data will be used to make fair comparisons regarding
-the age ranges and religion variables
+the religion variables
 
 Cluster 1:
 
--   consists of average of 1.46 alcoholic drinks consumed per person
+-   consists of average of 1.47 alcoholic drinks consumed per person
 
--   There was an average of 339.76 alcohol related car crashes with most
-    of them being in the 21-24 age range
+-   There was an average of 323 alcohol related car crashes
 
 -   This cluster consisted of mainly Baptists rather than Mormons
 
 Cluster 2:
 
--   Consists of an average of 1.64 alcoholic drinks consumed per person
+-   Consists of an average of 1.72 alcoholic drinks consumed per person
 
--   There was an average of 510.31 alcohol related car crashes with most
-    of them also being in the 21-24 age range
+-   There was an average of 117 alcohol related car crashes
 
--   This cluster consists of somewhat more Baptists than Mormons
+-   This cluster consists of somewhat more Mormons than Baptists
 
 Cluster 3:
 
--   Consists of an average of 1.72 alcoholic drinks consumed per person
+-   Consists of an average of 1.39 alcoholic drinks consumed per person
 
--   There was an average of 117.09 alcohol related car crashes with most
-    of them being in the 15-17 age range
+-   There was an average of 113 alcohol related car crashes
 
--   This cluster consists of mainly Baptists than Mormons
+-   This cluster consists had similar amounts of Baptists and Mormons
 
 Cluster 4:
 
--   Consists of an average of 1.09 alcoholic drinks consumed per person
+-   Consists of an average of 2.18 alcoholic drinks consumed per person
 
--   There was an average of 176.92 alcohol related car crashes with most
-    of them being spread pretty evenly between all the age ranges
-    (15-24)
+-   There was an average of 142 alcohol related car crashes
 
--   This cluster contains mainly Mormons
+-   This cluster consists had similar amounts of Baptists and Mormons
 
 Cluster 5:
 
--   Consists of an average of 1.95 alcoholic drinks consumed per person
+-   Consists of an average of 1.6 alcoholic drinks consumed per person
 
--   There was an average of 47.37 alcohol related car crashes with most
-    of them being between 18-24
+-   There was an average of 473 alcohol related car crashes
 
 -   This cluster contains more Mormons than Baptists
 
 Cluster 6:
 
--   Consists of an average of 2.15 alcoholic drinks consumed per person
+-   Consists of an average of 1.24 alcoholic drinks consumed per person
 
--   There was an average of 200.78 alcohol related car crashes with most
-    of them being between all the age groups (15-24)
+-   There was an average of 295 alcohol related car crashes
 
--   This cluster contains significantly more Mormons than Baptists
+-   This cluster contains significantly more Baptists than Mormons
 
 ### Cluster analysis (by variable)
 
-In this first chart it is shown that cluster 4 had the highest number of
-car crash fatalities related to alcohol while cluster 2 had the lowest
-amount. Cluster 3 had the second highest amount.
+In this first chart it is shown that cluster 5 had the highest number of
+car crash fatalities related to alcohol while clusters 2 and 3 had the
+lowest amount. Cluster 1 had the second highest amount.
 
 ```{r}
 y=clustertable2$cluster
@@ -585,9 +578,8 @@ ggplot(data, aes(x = y, y = x)) +
 
 ```
 
-In this next chart, cluster 5 had the highest number of alcohol consumed
-while clusters 1 had the lowest amount. The second highest was cluster
-2.
+In this next chart, cluster 4 had the highest number of alcohol consumed
+while cluster 6 had the lowest amount. The second highest was cluster 2.
 
 ```{r}
 y=clustertable2$cluster
@@ -601,9 +593,8 @@ ggplot(data, aes(x = y, y = x)) +
 
 ```
 
-As shown below, cluster 3 had the highest population of Baptists while
-cluster 1 had the lowest amount. The rest of the clusters had similar
-populations of Baptist.
+As shown below, clusters 1 and 6 had the highest population of Baptists
+while clusters 3 and 4 had the lowest amount.
 
 ```{r}
 y=clustertable2$cluster
@@ -617,8 +608,8 @@ ggplot(data, aes(x = y, y = x)) +
 
 ```
 
-In this chart, cluster 6 had the highest population of Mormons and
-cluster 2 had the lowest population.
+In this chart, cluster 2 had the highest population of Mormons and
+clusters 3 and 4 had the lowest population.
 
 ```{r}
 y=clustertable2$cluster
@@ -632,49 +623,46 @@ ggplot(data, aes(x = y, y = x)) +
 
 ```
 
-The highest number of fatal car crashes in the age range of 15 to 17
-occurred in cluster 4 while the lowest number was in cluster 2.
+Cluster 1 had the highest beertax while clusters 2 and 4 had the lowest
+beertax.
 
 ```{r}
 y=clustertable2$cluster
-x=clustertable2$fatal1517
+x=clustertable2$beertax
 data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
   geom_bar(stat = "identity", fill = y) + 
-  labs(x = "Cluster", y = "Fatal1517")
+  labs(x = "Cluster", y = "Beertax")
 
 ```
 
-The highest number of fatal car crashes in the age range of 18 to 20
-occurred in cluster 4 while the lowest number was in cluster 2.
+### Cluster Analysis (State)
 
 ```{r}
-y=clustertable2$cluster
-x=clustertable2$fatal1820
-data=as.data.frame(x)
-data$y=y
-
-ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
-  labs(x = "Cluster", y = "Fatal1820")
-
+dfsub=Fatalities
+subsetdf=dfsub[rownames(dfsub) %in% rownames(cleaned_df_2),]
+subsetdf$cluster=km$cluster
+subsetdf$cluster=as.factor(subsetdf$cluster)
+custom_colors=c("red", "green", "yellow", "orange", "blue", "cyan", "purple")
+ggplot(subsetdf, aes(x=state, afatal, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
 
-Lastly, the highest number of fatal car crashes in the age range of 21
-to 24 occurred in cluster 4 while the lowest number was in cluster 2.
+```{r}
+ggplot(subsetdf, aes(x=state, mormon, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
 
 ```{r}
-y=clustertable2$cluster
-x=clustertable2$fatal2124
-data=as.data.frame(x)
-data$y=y
+ggplot(subsetdf, aes(x=state, baptist, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
 
-ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
-  labs(x = "Cluster", y = "Fatal2124")
+```{r}
+ggplot(subsetdf, aes(x=state, spirits, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
 
+```{r}
+ggplot(subsetdf, aes(x=state, beertax, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
 
 ### Conclusion
