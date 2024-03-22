@@ -3833,36 +3833,42 @@ Available components:
 <ul>
 <li><p>consists of average of 1.47 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 323 alcohol related car crashes</p></li>
+<li><p>The average beertax was 93 cents</p></li>
 <li><p>This cluster consisted of mainly Baptists rather than Mormons</p></li>
 </ul>
 <p>Cluster 2:</p>
 <ul>
 <li><p>Consists of an average of 1.72 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 117 alcohol related car crashes</p></li>
+<li><p>The average beertax was 23.7 cents</p></li>
 <li><p>This cluster consists of somewhat more Mormons than Baptists</p></li>
 </ul>
 <p>Cluster 3:</p>
 <ul>
 <li><p>Consists of an average of 1.39 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 113 alcohol related car crashes</p></li>
+<li><p>The average beertax was 50.1 cents</p></li>
 <li><p>This cluster consists had similar amounts of Baptists and Mormons</p></li>
 </ul>
 <p>Cluster 4:</p>
 <ul>
 <li><p>Consists of an average of 2.18 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 142 alcohol related car crashes</p></li>
+<li><p>The average beertax was 24.5 cents</p></li>
 <li><p>This cluster consists had similar amounts of Baptists and Mormons</p></li>
 </ul>
 <p>Cluster 5:</p>
 <ul>
 <li><p>Consists of an average of 1.6 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 473 alcohol related car crashes</p></li>
+<li><p>The average beertax was 27 cents</p></li>
 <li><p>This cluster contains more Mormons than Baptists</p></li>
 </ul>
 <p>Cluster 6:</p>
 <ul>
 <li><p>Consists of an average of 1.24 alcoholic drinks consumed per person</p></li>
 <li><p>There was an average of 295 alcohol related car crashes</p></li>
+<li><p>The average beertax was 35 cents</p></li>
 <li><p>This cluster contains significantly more Baptists than Mormons</p></li>
 </ul>
 </section>
@@ -3961,6 +3967,7 @@ Available components:
 </section>
 <section id="cluster-analysis-state" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-analysis-state">Cluster Analysis (State)</h3>
+<p>The below graphs show the same information as the bar charts but at the state level. We created a subset of the original data that now has the clusters from our k-means clustering analyis to make inferences. This is to highlight which states belong to which cluster.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dfsub<span class="ot">=</span>Fatalities</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>subsetdf<span class="ot">=</span>dfsub[<span class="fu">rownames</span>(dfsub) <span class="sc">%in%</span> <span class="fu">rownames</span>(cleaned_df_2),]</span>
@@ -4016,6 +4023,7 @@ Available components:
 </div>
 </div>
 </div>
+<p>The map below shows a better depiction of the clustered states:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>map_data<span class="ot">=</span><span class="fu">map_data</span>(<span class="st">&quot;state&quot;</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4072,6 +4080,7 @@ Available components:
 </div>
 </div>
 </div>
+<p>As shown by the map, the clustered states seem form 6 different sub-regions of the U.S. based off our chosen variables. Cluster 1 appears to contain the South. Cluster 2 seems to be the West. Cluster 3 is in the center of the U.S. with two states residing further East. Cluster 4 is primarily in the Northeast of the U.S. Cluster 5 is in the Great Lakes and MidEast area. Lastly, Cluster 6 is in the Eastern-Central part of the U.S.</p>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>

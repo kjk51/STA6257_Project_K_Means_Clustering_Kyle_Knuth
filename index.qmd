@@ -740,7 +740,11 @@ ggplot() + geom_polygon(data=map_data, aes(x=long, y=lat, group=group, fill=colo
 
 As shown by the map, the clustered states seem form 6 different
 sub-regions of the U.S. based off our chosen variables. Cluster 1
-appears to be...
+appears to contain the South. Cluster 2 seems to be the West. Cluster 3
+is in the center of the U.S. with two states residing further East.
+Cluster 4 is primarily in the Northeast of the U.S. Cluster 5 is in the
+Great Lakes and MidEast area. Lastly, Cluster 6 is in the
+Eastern-Central part of the U.S.
 
 ### Conclusion
 
