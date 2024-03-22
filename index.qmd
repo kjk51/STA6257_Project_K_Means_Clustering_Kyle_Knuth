@@ -298,7 +298,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|--------------|---------------|--------------------------------------------------------------------------------------------------------|
+|------------|------------|------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -357,6 +357,10 @@ install.packages("missForest", repos = "http://cran.us.r-project.org")
 install.packages("AER", repos = "http://cran.us.r-project.org")
 install.packages("caret", repos = "http://cran.us.r-project.org")
 install.packages("psych", repos = "http://cran.us.r-project.org")
+install.packages("maps", repos = "http://cran.us.r-project.org")
+install.packages("mapproj", repos = "http://cran.us.r-project.org")
+library(maps)
+library(mapproj)
 library(psych)
 library(caret)
 library(AER)
@@ -518,6 +522,8 @@ Cluster 1:
 
 -   There was an average of 323 alcohol related car crashes
 
+-   The average beertax was 93 cents
+
 -   This cluster consisted of mainly Baptists rather than Mormons
 
 Cluster 2:
@@ -525,6 +531,8 @@ Cluster 2:
 -   Consists of an average of 1.72 alcoholic drinks consumed per person
 
 -   There was an average of 117 alcohol related car crashes
+
+-   The average beertax was 23.7 cents
 
 -   This cluster consists of somewhat more Mormons than Baptists
 
@@ -534,6 +542,8 @@ Cluster 3:
 
 -   There was an average of 113 alcohol related car crashes
 
+-   The average beertax was 50.1 cents
+
 -   This cluster consists had similar amounts of Baptists and Mormons
 
 Cluster 4:
@@ -541,6 +551,8 @@ Cluster 4:
 -   Consists of an average of 2.18 alcoholic drinks consumed per person
 
 -   There was an average of 142 alcohol related car crashes
+
+-   The average beertax was 24.5 cents
 
 -   This cluster consists had similar amounts of Baptists and Mormons
 
@@ -550,6 +562,8 @@ Cluster 5:
 
 -   There was an average of 473 alcohol related car crashes
 
+-   The average beertax was 27 cents
+
 -   This cluster contains more Mormons than Baptists
 
 Cluster 6:
@@ -557,6 +571,8 @@ Cluster 6:
 -   Consists of an average of 1.24 alcoholic drinks consumed per person
 
 -   There was an average of 295 alcohol related car crashes
+
+-   The average beertax was 35 cents
 
 -   This cluster contains significantly more Baptists than Mormons
 
@@ -640,6 +656,11 @@ ggplot(data, aes(x = y, y = x)) +
 
 ### Cluster Analysis (State)
 
+The below graphs show the same information as the bar charts but at the
+state level. We created a subset of the original data that now has the
+clusters from our k-means clustering analyis to make inferences. This is
+to highlight which states belong to which cluster.
+
 ```{r}
 dfsub=Fatalities
 subsetdf=dfsub[rownames(dfsub) %in% rownames(cleaned_df_2),]
@@ -664,6 +685,62 @@ ggplot(subsetdf, aes(x=state, spirits, color=cluster)) + geom_point()+ scale_col
 ```{r}
 ggplot(subsetdf, aes(x=state, beertax, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
+
+The map below shows a better depiction of the clustered states:
+
+```{r}
+map_data=map_data("state")
+
+state_colors=c("florida"="red",
+               "louisiana"="red",
+               "mississippi"="red",
+               "north Carolina"="red",
+               "oklahoma"="red",
+               "virginia"="red",
+               "arkansas"="cyan",
+               "kentucky"="cyan",
+               "missouri"="cyan",
+               "tennessee"="cyan",
+               "colorado"="green", 
+               "montana"="green",
+               "new mexico"="green",
+               "wyoming"="green",
+               "connecticut"="orange",
+               "delaware"="orange",
+               "maryland"="orange",
+               "massachusetts"="orange",
+               "minnesota"="orange",
+               "new jersey"="orange",
+               "north dakota"="yellow",
+               "rhode island"="orange",
+               "vermont"="orange",
+               "wisconsin"="orange",
+               "illinois"="blue",
+               "indiana"="blue",
+               "michigan"="blue",
+               "new york"="blue",
+               "ohio"="blue",
+               "pennsylvania"="blue",
+               "iowa"="yellow",
+               "kansas"="yellow",
+               "maine"="yellow",
+               "nebraska"="yellow",
+               "south dakota"="yellow",
+               "west virginia"="yellow")
+
+
+
+map_data$color=ifelse(map_data$region %in%
+                        names(state_colors),
+                      state_colors[map_data$region], NA)
+ggplot() + geom_polygon(data=map_data, aes(x=long, y=lat, group=group, fill=color), color="black", size=0.25
+                        ) + coord_map()+
+  theme_void()+scale_fill_identity()
+```
+
+As shown by the map, the clustered states seem form 6 different
+sub-regions of the U.S. based off our chosen variables. Cluster 1
+appears to be...
 
 ### Conclusion
 
