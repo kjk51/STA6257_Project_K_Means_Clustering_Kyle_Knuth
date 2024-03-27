@@ -298,7 +298,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------|------------|------------------------------------------------|
+|----------------|----------------|----------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -340,25 +340,6 @@ Install necessary packages to perform data cleaning, analysis,
 visualization, and model building.
 
 ```{r}
-install.packages("tidyverse",repos = "http://cran.us.r-project.org")
-install.packages("MASS", repos = "http://cran.us.r-project.org")
-install.packages("fpc", repos = "http://cran.us.r-project.org")
-install.packages("waterfalls", repos = "http://cran.us.r-project.org")
-install.packages("gt", repos = "http://cran.us.r-project.org")
-install.packages("gtable", repos = "http://cran.us.r-project.org")
-install.packages("ggcorrplot", repos = "http://cran.us.r-project.org")
-install.packages("ggplot2", repos = "http://cran.us.r-project.org")
-install.packages("corrplot", repos = "http://cran.us.r-project.org")
-install.packages("googlesheets4", repos = "http://cran.us.r-project.org")
-install.packages("cluster", repos = "http://cran.us.r-project.org")
-install.packages("factoextra", repos = "http://cran.us.r-project.org")
-install.packages("isofor", repos = "http://cran.us.r-project.org")
-install.packages("missForest", repos = "http://cran.us.r-project.org")
-install.packages("AER", repos = "http://cran.us.r-project.org")
-install.packages("caret", repos = "http://cran.us.r-project.org")
-install.packages("psych", repos = "http://cran.us.r-project.org")
-install.packages("maps", repos = "http://cran.us.r-project.org")
-install.packages("mapproj", repos = "http://cran.us.r-project.org")
 library(maps)
 library(mapproj)
 library(psych)
@@ -478,8 +459,10 @@ to perform k-means clustering. The plot below shows clustering for our
 dataframe consisting of our variables of interest.
 
 ```{r}
+custom_colors=c("red","green", "yellow", "orange", "blue", "cyan")
 km <- kmeans(cleaned_df2, centers= 6, nstart = 25)
-fviz_cluster(km, data = cleaned_df2)
+fviz_cluster(km,data=cleaned_df2, geom = "point")+scale_color_manual(values = custom_colors)+scale_fill_manual(values = custom_colors)
+
 ```
 
 Using between sum of squares divided by the total sum of squares as a
@@ -589,9 +572,8 @@ data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
+  geom_bar(stat = "identity", fill = custom_colors) + 
   labs(x = "Cluster", y = "Afatal")
-
 ```
 
 In this next chart, cluster 4 had the highest number of alcohol consumed
@@ -604,7 +586,7 @@ data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
+  geom_bar(stat = "identity", fill = custom_colors) + 
   labs(x = "Cluster", y = "Spirits")
 
 ```
@@ -619,7 +601,7 @@ data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
+  geom_bar(stat = "identity", fill = custom_colors) + 
   labs(x = "Cluster", y = "Baptist")
 
 ```
@@ -634,7 +616,7 @@ data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
+  geom_bar(stat = "identity", fill = custom_colors) + 
   labs(x = "Cluster", y = "Mormon")
 
 ```
@@ -649,7 +631,7 @@ data=as.data.frame(x)
 data$y=y
 
 ggplot(data, aes(x = y, y = x)) +
-  geom_bar(stat = "identity", fill = y) + 
+  geom_bar(stat = "identity", fill = custom_colors) + 
   labs(x = "Cluster", y = "Beertax")
 
 ```
@@ -733,9 +715,23 @@ state_colors=c("florida"="red",
 map_data$color=ifelse(map_data$region %in%
                         names(state_colors),
                       state_colors[map_data$region], NA)
-ggplot() + geom_polygon(data=map_data, aes(x=long, y=lat, group=group, fill=color), color="black", size=0.25
-                        ) + coord_map()+
-  theme_void()+scale_fill_identity()
+
+map_data$Cluster=ifelse(map_data$color=="red", "Cluster 1",
+                        ifelse(map_data$color=="green","Cluster 2",
+                               ifelse(map_data$color=="yellow", "Cluster 3",
+                                      ifelse(map_data$color=="orange","Cluster 4",
+                                             ifelse(map_data$color=="blue", "Cluster 5",
+                                                    ifelse(map_data$color=="cyan","Cluster 6",NA))))))
+
+
+custom_colors=c("Cluster 1"="red", "Cluster 2"="green", "Cluster 3"="yellow", "Cluster 4"="orange", "Cluster 5"="blue", "Cluster 6"="cyan")
+
+
+ggplot(map_data,aes(x=long,y=lat,group=group, fill=Cluster))+geom_polygon(color="black", size=0.25)+theme_void()+scale_fill_manual(values = custom_colors, na.value="white")
+
+
+
+
 ```
 
 As shown by the map, the clustered states seem form 6 different
@@ -747,5 +743,28 @@ Great Lakes and MidEast area. Lastly, Cluster 6 is in the
 Eastern-Central part of the U.S.
 
 ### Conclusion
+
+In conclusion, we have analyzed data from the "Fatalities" dataset,
+which contains information on fatal car crashes from the US Department
+of Transportation's Fatal Accident Reporting System. As shown by our
+analysis, K-means clustering is a great option to group data together to
+generate useful insights.  We have shown how the analysis was performed
+such as pre-processing the data, determining the optimal number of
+clusters as well as creating and implementing our K-means clustering
+model. We generated 6 clusters to explain trends regarding alcohol
+related car crashes related to alcohol consumption, religion, and beer
+tax. From this analysis, we were able to assign these clusters to the
+rest of the data and create subregions of the United States, each with
+its own characteristics, and make inferences. These inferences can help
+provide an understanding of how each region handles alcohol and its
+impacts. Using k-means clustering, we were able to obtain important
+insights into the complex interactions between these variables, which
+could possible help identify possible areas for focused intervention.
+
+In addition, we recognize that choosing the correct number clusters can
+be difficult as well as very subjective. Due to this, there can be
+varying results and accuracy. For example, interpreting our graphs of
+the Elbow method and Silhouette method was somewhat subjective, but the
+decision became easier after observing the Gap Statistic.
 
 ## References
