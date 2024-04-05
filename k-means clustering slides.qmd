@@ -1,0 +1,100 @@
+---
+title: "K-Means Clustering"
+author: "Kyle Knuth, Siva Gopavarapu, Nikhitha Karlapudi, Eswar Sai Burugupalley, Bala Venkataprasad Sadhana Vittal"
+format: revealjs
+editor: visual
+---
+
+## Methods (Kyle Knuth) 
+
+The methodology behind k-means clustering involves preprocessing the data, picking variables of interest, determining the optimal number of clusters, performing the k-means clustering, and identifying what each cluster consists of. The data is typically preprocessed by first removing any categorical variables, then removing outliers, and finally performing feature scaling. Once the data has been preprocessed, variables of interest will be picked and then the optimal number of clusters will be determined.
+
+## Silhouette Coefficient
+
+The first method of determining how many clusters to use is the Silhouette Coefficient.  The Silhouette Coefficient is used to measure how similar a data point is to its own cluster compared to other clusters based off a range of -1 to 1 where a more positive value means that the data is well placed within its cluster[@shi2021quantitative].
+
+$$
+S=b-a/max(b,\:a)
+$$
+
+S: Silhouette coefficient
+
+a: the average distance from one data point to the other within the same cluster
+
+b: the minimum average distance from one point to points in other clusters
+
+## Elbow Method
+
+The next method of determining how many clusters to use is the Elbow method. The Elbow method consists of plotting the within-cluster sum of squares against the number of clusters and visually selecting a point where the rate of decrease significantly slows down [@shi2021quantitative].
+
+$$
+WCSS=\sum^K_{k=1}\sum_{x_i=C_k}x_i-\mu^2_{k2}
+$$
+
+WCSS: within-cluster sum of squares
+
+x: data point in the cluster
+
+C~K~: the current individual cluster
+
+K: number of total clusters
+
+$\mu_k$: centroids corresponding to the cluster
+
+## Gap Statistic
+
+The final method in determining how many clusters to use is the Gap statistic. This method finds the optimal number of clusters by comparing the within cluster dispersion changes to expected with a null dispersion[@tibshirani2001estimating].
+
+$$
+Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
+$$
+
+Gap~n~(k): Gap statistic
+
+E\*n: expectation of sample size
+
+n: sample size
+
+k: number of clusters
+
+W~K~:within-cluster sum of squares surrounding cluster means
+
+## Euclidean Distance
+
+The distance metric used for these methods is Euclidean distance. Euclidean distance is defined as the straight line distance between two points [@ultsch2022euclidean].
+
+$$
+d(x,y)=\sqrt{\sum|x_i-y_i|^2}
+$$
+
+d(x,y): Euclidean distance
+
+x: x-coordinate point
+
+y: y-coordinate point
+
+## K-Means process
+
+The actual method of k-means clustering is an iterative process consisting of the following steps [@9320839]:
+
+-   Determine the number of clusters
+
+-   Randomly select an initial centroid
+
+-   Using Euclidean distance, data is assigned to clusters in accordance to the distance of the centroids
+
+-   A new centroid is recalculated based on the mean of the previous centroids.
+
+-   All the previous steps are repeated until the mean of the centroids no longer changes
+
+## Assumptions
+
+The assumptions of k-means clustering are as follows [@raykov2016k]:
+
+-   The data is in a sphere around the centroid and each sphere has the same radius
+
+-   The average of the points in a cluster is the centroid of the cluster meaning that outliers will dramatically affect clustering
+
+-   The density of each cluster is consistent
+
+-   The number of clusters is known and fixed

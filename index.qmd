@@ -279,7 +279,7 @@ The assumptions of k-means clustering are as follows [@raykov2016k]:
     same radius
 
 -   The average of the points in a cluster is the centroid of the
-    cluster meaning that outliers will dramitically affect clustering 
+    cluster meaning that outliers will dramatically affect clustering 
 
 -   The density of each cluster is consistent
 
@@ -298,7 +298,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|----------------|----------------|----------------------------------------|
+|-----------------|-----------------|--------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
