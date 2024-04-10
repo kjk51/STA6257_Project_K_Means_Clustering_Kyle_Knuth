@@ -1,17 +1,128 @@
 ---
-title: "K-Means Clustering"
-author: "Kyle Knuth, Siva Gopavarapu, Nikhitha Karlapudi, Eswar Sai Burugupalley, Bala Venkataprasad Sadhana Vittal"
-format: revealjs
-editor: visual
+title: "Using K-Means Clustering to Determine Groupings of Fatal Car Crashes"
+authors:
+  - name: Kyle Knuth
+  - name: Siva Gopavarapu
+  - name: Nikhitha Karlapudi
+  - name: Eswar Sai Burugupalley
+  - name: Bala Venkataprasad Sadhana Vittal
+date: 'today'
+format:
+  revealjs:
+    incremental: true   
+    slide-number: true
+    show-slide-number: print
+    smaller: true
+    scrollable: true
+    theme: sky
+course: STA 6257 - Advanced Statistical Modeling
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
-## Methods (Kyle Knuth) 
+## Intro to K-means clustering: (Unsupervised Technique)
 
-The methodology behind k-means clustering involves preprocessing the data, picking variables of interest, determining the optimal number of clusters, performing the k-means clustering, and identifying what each cluster consists of. The data is typically preprocessed by first removing any categorical variables, then removing outliers, and finally performing feature scaling. Once the data has been preprocessed, variables of interest will be picked and then the optimal number of clusters will be determined.
+-   K-means clustering groups data into clusters to maximize similarity
+    and minimize dissimilarity. 
+
+-   Methods for optimal cluster number: Elbow, Silhouette, and Gap
+    Statistic. 
+
+-   Preprocessing techniques like Canopy algorithm for large datasets. 
+
+-   Cluster quality assessed using Calinski-Harabasz criterion. 
+
+-   K-means process: iterative centroid recalculation for cluster
+    convergence. 
+
+-   Efficiency improved by using PCA for initial centroid estimation. 
+
+    ![](1_rw8IUza1dbffBhiA4i0GNQ.png){width="519"}
+
+## Applications
+
+-   K-means clustering applied in various fields: 
+
+-   Color segmentation in fruit disease identification. 
+
+-   Geographic clustering for aquifer risk assessment and regional
+    classification in Indonesia. 
+
+-   Medical applications: predicting chemotherapy response, analyzing
+    skin changes with age, pregnancy problem analysis, and allergen
+    sensitivity prediction. 
+
+-   Tourism industry: clustering tourist preferences to enhance
+    satisfaction. 
+
+-   Agriculture: soil classification and spatial representation
+    improvement. 
+
+<!-- -->
+
+-   Economic and health behavior clustering for county-level analysis. 
+
+## Variations:
+
+-   Constrained K-means clustering imposes lower bounds on clusters and
+    distances between them, potentially deleting or consolidating
+    clusters based on constraints 
+
+-   Improved K-means algorithm enhances speed and efficiency by using
+    two data structures to store cluster labels and distances, reducing
+    repeated distance calculations  
+
+-   Filtering algorithm optimizes Lloyd’s K-means using kd-tree
+    structure, improving efficiency and scalability to higher
+    dimensions 
+
+-   K-means clustering can be integrated with MapReduce from Hadoop for
+    efficient data processing by calculating distances between centroids
+    and data points, iteratively updating centroids until convergence 
+
+-   Extended K-means considers cluster sizes by sorting clusters based
+    on the number of elements and recruits or drops elements from
+    clusters accordingly. 
+
+## Limitations: 
+
+-   Random initialization of centroids. 
+
+-   Requires prior knowledge of the number of clusters. 
+
+-   Difficulty handling diverse data types. 
+
+-   Choosing incorrect number of clusters can introduce variability. 
+
+<!-- -->
+
+-   Issues arise with complex data and scalability. 
+
+-   Requires careful preprocessing and adequate sample size. 
+
+## Methods
+
+The methodology behind k-means clustering involves preprocessing the
+data, picking variables of interest, determining the optimal number of
+clusters, performing the k-means clustering, and identifying what each
+cluster consists of. The data is typically preprocessed by first
+removing any categorical variables, then removing outliers, and finally
+performing feature scaling. Once the data has been preprocessed,
+variables of interest will be picked and then the optimal number of
+clusters will be determined.
 
 ## Silhouette Coefficient
 
-The first method of determining how many clusters to use is the Silhouette Coefficient.  The Silhouette Coefficient is used to measure how similar a data point is to its own cluster compared to other clusters based off a range of -1 to 1 where a more positive value means that the data is well placed within its cluster[@shi2021quantitative].
+The first method of determining how many clusters to use is the
+Silhouette Coefficient.  The Silhouette Coefficient is used to measure
+how similar a data point is to its own cluster compared to other
+clusters based off a range of -1 to 1 where a more positive value means
+that the data is well placed within its cluster[@shi2021quantitative].
 
 $$
 S=b-a/max(b,\:a)
@@ -19,13 +130,19 @@ $$
 
 S: Silhouette coefficient
 
-a: the average distance from one data point to the other within the same cluster
+a: the average distance from one data point to the other within the same
+cluster
 
-b: the minimum average distance from one point to points in other clusters
+b: the minimum average distance from one point to points in other
+clusters
 
 ## Elbow Method
 
-The next method of determining how many clusters to use is the Elbow method. The Elbow method consists of plotting the within-cluster sum of squares against the number of clusters and visually selecting a point where the rate of decrease significantly slows down [@shi2021quantitative].
+The next method of determining how many clusters to use is the Elbow
+method. The Elbow method consists of plotting the within-cluster sum of
+squares against the number of clusters and visually selecting a point
+where the rate of decrease significantly slows down
+[@shi2021quantitative].
 
 $$
 WCSS=\sum^K_{k=1}\sum_{x_i=C_k}x_i-\mu^2_{k2}
@@ -43,7 +160,10 @@ $\mu_k$: centroids corresponding to the cluster
 
 ## Gap Statistic
 
-The final method in determining how many clusters to use is the Gap statistic. This method finds the optimal number of clusters by comparing the within cluster dispersion changes to expected with a null dispersion[@tibshirani2001estimating].
+The final method in determining how many clusters to use is the Gap
+statistic. This method finds the optimal number of clusters by comparing
+the within cluster dispersion changes to expected with a null
+dispersion[@tibshirani2001estimating].
 
 $$
 Gap_n(k)=E^*_n\{log(W_K)\}-log(W_k)
@@ -51,17 +171,19 @@ $$
 
 Gap~n~(k): Gap statistic
 
-E\*n: expectation of sample size
-
 n: sample size
 
 k: number of clusters
 
 W~K~:within-cluster sum of squares surrounding cluster means
 
+$E^*_n$: Expectation of sample size\
+
 ## Euclidean Distance
 
-The distance metric used for these methods is Euclidean distance. Euclidean distance is defined as the straight line distance between two points [@ultsch2022euclidean].
+The distance metric used for these methods is Euclidean distance.
+Euclidean distance is defined as the straight line distance between two
+points [@ultsch2022euclidean].
 
 $$
 d(x,y)=\sqrt{\sum|x_i-y_i|^2}
@@ -75,26 +197,622 @@ y: y-coordinate point
 
 ## K-Means process
 
-The actual method of k-means clustering is an iterative process consisting of the following steps [@9320839]:
+The actual method of k-means clustering is an iterative process
+consisting of the following steps [@9320839]:
 
 -   Determine the number of clusters
 
 -   Randomly select an initial centroid
 
--   Using Euclidean distance, data is assigned to clusters in accordance to the distance of the centroids
+-   Using Euclidean distance, data is assigned to clusters in accordance
+    to the distance of the centroids
 
--   A new centroid is recalculated based on the mean of the previous centroids.
+-   A new centroid is recalculated based on the mean of the previous
+    centroids.
 
--   All the previous steps are repeated until the mean of the centroids no longer changes
+-   All the previous steps are repeated until the mean of the centroids
+    no longer changes
 
 ## Assumptions
 
 The assumptions of k-means clustering are as follows [@raykov2016k]:
 
--   The data is in a sphere around the centroid and each sphere has the same radius
+-   The data is in a sphere around the centroid and each sphere has the
+    same radius
 
--   The average of the points in a cluster is the centroid of the cluster meaning that outliers will dramatically affect clustering
+-   The average of the points in a cluster is the centroid of the
+    cluster meaning that outliers will dramatically affect clustering
 
 -   The density of each cluster is consistent
 
 -   The number of clusters is known and fixed
+
+```{r}
+library(maps)
+library(mapproj)
+library(psych)
+library(caret)
+library(AER)
+library(e1071)
+library(missForest)
+library(MASS)
+library(fpc)
+library(cluster)
+library(factoextra)
+library(tidyverse)
+library(waterfalls)
+library(corrplot)
+library(ggcorrplot)
+library(googlesheets4) 
+data("Fatalities")
+df1=Fatalities
+df=Fatalities
+df3=Fatalities
+```
+
+## 
+
+## Dataset
+
+::: panel-tabset
+## Data Description {.hscroll .scrollable}
+
+"Fatalities" dataset is from the AER R package which originally came
+from US Department of Transportation Fatal Accident Reporting System and
+is dated from 1982-1988 (The data includes all the states except Alaska
+and Hawaii)
+
+[[*Link to Fatalities data
+documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
+
+| Variable     | Variable Type | Description                                                                                            |
+|------------|------------|------------------------------------------------|
+| state        | Categorical   | A categorical variable that represents the state                                                       |
+| year         | Categorical   | The year is indicated by the categorical factor                                                        |
+| spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
+| unemp        | Continuous    | The unemployment rate expressed as a numerical value.                                                  |
+| income       | Continuous    | A numerical value in dollars that represents the per capita personal income.                           |
+| emppop       | Continuous    | The employment to population ratio expressed as a numerical value.                                     |
+| beertax      | Continuous    | The tax on a case of beer expressed as a numerical value.                                              |
+| baptist      | Continuous    | A number that indicates the proportion of Southern Baptists in the general population.                 |
+| mormon       | Continuous    | A numerical value that indicates the proportion of Mormons in the general population.                  |
+| drinkage     | Continuous    | A number that represents the minimum age at which alcohol is permitted.                                |
+| dry          | Continuous    | A numerical number that indicates the proportion of people living in "dry" counties.                   |
+| youngdrivers | Continuous    | A numerical value indicating the proportion of drivers between the ages of 15 and 24.                  |
+| miles        | Continuous    | A numerical value indicating the average number of miles driven by each driver.                        |
+| breath       | Boolean       | A categorical factor that denotes the existence of a law requiring a preliminary breath test.          |
+| jail         | Boolean       | A categorical factor that indicates whether a jail sentence is required.                               |
+| service      | Boolean       | A categorical factor that denotes the existence of a community service requirement.                    |
+| fatal        | Continuous    | A number that indicates the overall number of people killed in cars.                                   |
+| nfatal       | Continuous    | A numerical value that indicates the quantity of car deaths that occur at night.                       |
+| sfatal       | Continuous    | A numerical value that indicates how many people have died in just one vehicle.                        |
+| fatal1517    | Continuous    | A numerical value that indicates how many teenagers between the ages of 15 and 17 were killed in cars. |
+| nfatal1517   | Continuous    | A numerical value that indicates how many teenagers, aged 15 to 17, are killed in cars at night.       |
+| fatal1820    | Continuous    | A numerical value that indicates the total number of 18–20-year-olds who die in cars.                  |
+| nfatal1820   | Continuous    | A numerical value that indicates how many teenagers, aged 18 to 20, are killed in cars at night.       |
+| fatal2124    | Continuous    | A numerical value that indicates how many people aged 21 to 24 are killed in cars.                     |
+| nfatal2124   | Continuous    | A numerical value that indicates how many people aged 21 to 24 are killed in cars.                     |
+| afatal       | Continuous    | A numerical value that indicates the quantity of drunk driving deaths.                                 |
+| pop          | Continuous    | A numerical figure that indicates the entire population.                                               |
+| pop1517      | Continuous    | A numerical value that indicates the population of people aged 15 to 17.                               |
+| pop1820      | Continuous    | A numerical value that denotes the 18–20 year old population.                                          |
+| pop2124      | Continuous    | A numerical value that denotes the population of people aged 21 to 24.                                 |
+| milestot     | Continuous    | A number (in millions) that indicates the total number of miles driven by a vehicle.                   |
+| unemppopus   | Continuous    | The US unemployment rate expressed as a numerical value.                                               |
+| Emppopus     | Continuous    | The US employment to population ratio expressed as a numerical value.                                  |
+| gsp          | Continuous    | A numerical value that indicates the Gross State Product's (GSP) rate of change.                       |
+
+## Data Preview
+
+``` r
+head(df)
+```
+
+```{r}
+library(AER) 
+
+data("Fatalities") 
+
+df=Fatalities 
+head(df)
+```
+
+## Observations
+
+-   No of rows and columns
+
+    ``` r
+    dim(df)
+    ```
+
+    ```{r}
+    dim(df)
+    ```
+
+-   Null and missing values
+
+    ``` r
+    print(c(sum(is.na(df)),sum(is.null(df))))
+    ```
+
+    ```{r}
+    print(c(sum(is.na(df)),sum(is.null(df))))
+    ```
+:::
+
+## Data Preprocessing
+
+::: panel-tabset
+## Variable Selection
+
+1.  Spirits
+
+2.  Beertax
+
+3.  Baptist
+
+4.  Mormon
+
+5.  Afatal
+
+We believe that the above variables helps to cluster the car crashes due
+to alcohol consumption
+
+``` r
+df=df[c(3,7,8,9,26)]
+```
+
+## Data Cleaning
+
+::: panel-tabset
+## Variable Conversion {.panel-tabset}
+
+Convert the percentage of Baptists and Mormons to a count
+
+``` r
+df$baptist=df$baptist/100 df$mormon=df$mormon/100 df$baptist=df$baptist*df$pop df$mormon=df$mormon*df$pop
+```
+
+```{r}
+df$baptist=df$baptist/100
+df$mormon=df$mormon/100
+df$baptist=df$baptist*df$pop
+df$mormon=df$mormon*df$pop
+df=df[c(3,7,8,9,26)]
+```
+
+## Null Values
+
+Check if there are any missing or null values in our data
+
+``` r
+print(c(sum(is.na(df)),sum(is.null(df))))
+```
+
+```{r}
+print(c(sum(is.na(df)),sum(is.null(df))))
+```
+
+## Summary
+
+``` r
+describe(df)
+```
+
+```{r}
+describe(df)
+```
+:::
+
+## Boxplot
+
+As shown in the boxplot below there are some outliers that need to be
+removed in our dataset
+
+``` r
+boxplot(df)
+```
+
+```{r}
+boxplot(df)
+```
+
+## Outlier Detection
+
+First, check if there are any outliers in our data and remove them
+before scaling the data. We need to remove the outliers since it can
+affect the centroid in the k-means clsutering process. In addition, the
+data needs to be scaled since k-means clustering is reliant on Euclidean
+distance and a large difference in values can adversly affect it.
+
+``` {.R code-line-numbers="1-5"}
+detection=function(x) {   q1=quantile(x,probs=.25)    q3=quantile(x,probs=.75)    iqr=q3-q1    x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}  elimination= function(df,cols=names(df)) {   for(col in cols) {      df=df[!detection(df[[col]]),]}   return(df)}  column_names=c('spirits','baptist','mormon', 'beertax', 'afatal') df2=df cleaned_df_2=elimination(df2,column_names) cleaned_df2=as.data.frame(scale(cleaned_df_2)) boxplot(cleaned_df2)
+```
+
+```{r}
+detection=function(x) {
+  q1=quantile(x,probs=.25) 
+  q3=quantile(x,probs=.75) 
+  iqr=q3-q1 
+  x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+
+elimination= function(df,cols=names(df)) {
+  for(col in cols) { 
+    df=df[!detection(df[[col]]),]}
+  return(df)} 
+column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
+df2=df
+cleaned_df_2=elimination(df2,column_names)
+cleaned_df2=as.data.frame(scale(cleaned_df_2))
+boxplot(cleaned_df2)
+```
+
+## Outlier Elimination
+
+``` {.R code-line-numbers="7-14"}
+detection=function(x) {   q1=quantile(x,probs=.25)    q3=quantile(x,probs=.75)    iqr=q3-q1    x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}  elimination= function(df,cols=names(df)) {   for(col in cols) {      df=df[!detection(df[[col]]),]}   return(df)}  column_names=c('spirits','baptist','mormon', 'beertax', 'afatal') df2=df cleaned_df_2=elimination(df2,column_names) cleaned_df2=as.data.frame(scale(cleaned_df_2)) boxplot(cleaned_df2)
+```
+
+```{r}
+detection=function(x) {
+  q1=quantile(x,probs=.25) 
+  q3=quantile(x,probs=.75) 
+  iqr=q3-q1 
+  x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+
+elimination= function(df,cols=names(df)) {
+  for(col in cols) { 
+    df=df[!detection(df[[col]]),]}
+  return(df)} 
+column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
+df2=df
+cleaned_df_2=elimination(df2,column_names)
+cleaned_df2=as.data.frame(scale(cleaned_df_2))
+boxplot(cleaned_df2)
+```
+
+## Boxplot
+
+``` r
+boxplot(cleaned_df2)
+```
+
+```{r}
+boxplot(cleaned_df2)
+```
+:::
+
+## Optimal Number of Clusters
+
+::: panel-tabset
+## Elbow Method
+
+The elbow method is performed and as shown by the graph, the optimal
+number of clusters is 6.
+
+``` r
+fviz_nbclust(cleaned_df2, kmeans, method = "wss")
+```
+
+```{r}
+fviz_nbclust(cleaned_df2, kmeans, method = "wss")
+```
+
+## Silhouette Coefficient
+
+According to this graph the optimal number of clusters could be either
+10 or 6. These numbers were chosen since they are the closest to 1 for
+average silhouette width.
+
+``` r
+fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
+```
+
+```{r}
+fviz_nbclust(cleaned_df2, kmeans, method = "silhouette")
+```
+
+## Gap Statistic
+
+Lastly we are using the gap statistic as a final check to determine the
+best number of clusters. This graph also shows 6 clusters as being the
+most optimal.
+
+``` r
+fviz_nbclust(cleaned_df2, kmeans, method = "gap_stat")
+```
+
+```{r}
+fviz_nbclust(cleaned_df2, kmeans, method = "gap_stat")
+```
+:::
+
+## Modeling with K-means Clustering
+
+Building the model using our variables of interest with the selected
+number of clusters as 6
+
+``` r
+custom_colors=c("red","green", "yellow", "orange", "blue", "cyan") km <- kmeans(cleaned_df2, centers= 6, nstart = 25) fviz_cluster(km,data=cleaned_df2, geom = "point")+scale_color_manual(values = custom_colors)+scale_fill_manual(values = custom_colors)
+```
+
+```{r}
+custom_colors=c("red","green", "yellow", "orange", "blue", "cyan")
+km <- kmeans(cleaned_df2, centers= 6, nstart = 25)
+fviz_cluster(km,data=cleaned_df2, geom = "point")+scale_color_manual(values = custom_colors)+scale_fill_manual(values = custom_colors)
+```
+
+## Results:
+
+Two clusters tables are created to show average characteristics of each
+cluster
+
+::: panel-tabset
+#### Table 1
+
+```{r}
+cleaned_df_2$cluster=km$cluster
+clustertable=cleaned_df_2%>%group_by(cluster) %>% summarise_all("mean")
+print(clustertable)
+```
+
+#### Table 2
+
+```{r}
+cleaned_df2$cluster=km$cluster
+clustertable2=cleaned_df2%>%group_by(cluster) %>% summarise_all("mean")
+print(clustertable2)
+```
+:::
+
+## 
+
+## Cluster Analysis(average)
+
+-   **Cluster 1**: This cluster is characterized by an average
+    consumption of 1.47 alcoholic drinks per person, with 323
+    alcohol-related car crashes on average. The average beer tax is
+    relatively high at 93 cents. It predominantly comprises Baptists
+    rather than Mormons.
+
+-   **Cluster 2**: Cluster 2 exhibits a slightly higher average
+    consumption of alcoholic drinks per person (1.72) compared to
+    Cluster 1, with a lower average of 117 alcohol-related car crashes.
+    The average beer tax is notably lower at 23.7 cents. This cluster
+    consists of somewhat more Mormons than Baptists.
+
+-   **Cluster 3**: In Cluster 3, the average consumption of alcoholic
+    drinks per person is 1.39, with 113 alcohol-related car crashes on
+    average. The average beer tax falls in between the previous clusters
+    at 50.1 cents. This cluster has similar proportions of Baptists and
+    Mormons.
+
+## Cluster Analysis(average)
+
+-   **Cluster 4**: This cluster demonstrates the highest average
+    consumption of alcoholic drinks per person (2.18) among the
+    clusters, with 142 alcohol-related car crashes on average. The
+    average beer tax is similar to Cluster 2 at 24.5 cents. Similar to
+    Cluster 3, it contains similar amounts of Baptists and Mormons.
+
+-   **Cluster 5**: Cluster 5 has an average consumption of 1.6 alcoholic
+    drinks per person, with 473 alcohol-related car crashes on average.
+    The average beer tax is 27 cents. This cluster contains more Mormons
+    than Baptists.
+
+-   **Cluster 6**: Finally, Cluster 6 displays the lowest average
+    consumption of alcoholic drinks per person (1.24), with 295
+    alcohol-related car crashes on average. The average beer tax is 35
+    cents. Significantly, this cluster contains more Baptists than
+    Mormons.
+
+## Cluster analysis (by variable)
+
+In this first chart it is shown that cluster 5 had the highest number of
+car crash fatalities related to alcohol while clusters 2 and 3 had the
+lowest amount. Cluster 1 had the second highest amount.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$afatal
+data=as.data.frame(x)
+data$y=y
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Afatal")
+```
+
+In this next chart, cluster 4 had the highest number of alcohol consumed
+while cluster 6 had the lowest amount. The second highest was cluster 2.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$spirits
+data=as.data.frame(x)
+data$y=y
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Spirits")
+```
+
+## Cluster analysis (by variable)
+
+As shown below, clusters 1 and 6 had the highest population of Baptists
+while clusters 3 and 4 had the lowest amount.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$baptist
+data=as.data.frame(x)
+data$y=y
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Baptist")
+```
+
+In this chart, cluster 2 had the highest population of Mormons and
+clusters 3 and 4 had the lowest population.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$mormon
+data=as.data.frame(x)
+data$y=y
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Mormon")
+```
+
+## Cluster analysis (by variable)
+
+Cluster 1 had the highest beertax while clusters 2 and 4 had the lowest
+beertax.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$beertax
+data=as.data.frame(x)
+data$y=y
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Beertax")
+```
+
+## Cluster analysis (state)
+
+The below graphs show the same information as the bar charts but at the
+state level. We created a subset of the original data that now has the
+clusters from our k-means clustering analyis to make inferences. This is
+to highlight which states belong to which cluster.
+
+::: panel-tabset
+#### Car Crash Fatalities
+
+```{r}
+dfsub=Fatalities
+subsetdf=dfsub[rownames(dfsub) %in% rownames(cleaned_df_2),]
+subsetdf$cluster=km$cluster
+subsetdf$cluster=as.factor(subsetdf$cluster)
+custom_colors=c("red", "green", "yellow", "orange", "blue", "cyan", "purple")
+ggplot(subsetdf, aes(x=state, afatal, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors) 
+```
+
+#### Mormon
+
+```{r}
+ggplot(subsetdf, aes(x=state, mormon, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
+
+#### Beer Tax
+
+```{r}
+ggplot(subsetdf, aes(x=state, beertax, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
+:::
+
+## Cluster analysis (state)
+
+::: panel-tabset
+#### Baptist
+
+```{r}
+ggplot(subsetdf, aes(x=state, baptist, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
+
+#### Alcohol consumption
+
+```{r}
+ggplot(subsetdf, aes(x=state, spirits, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+```
+:::
+
+## State map based on clusters
+
+Below is the map in which states are divided based on clusters
+
+```{r}
+map_data=map_data("state")
+
+state_colors=c("florida"="red",
+               "louisiana"="red",
+               "mississippi"="red",
+               "north Carolina"="red",
+               "oklahoma"="red",
+               "virginia"="red",
+               "arkansas"="cyan",
+               "kentucky"="cyan",
+               "missouri"="cyan",
+               "tennessee"="cyan",
+               "colorado"="green", 
+               "montana"="green",
+               "new mexico"="green",
+               "wyoming"="green",
+               "connecticut"="orange",
+               "delaware"="orange",
+               "maryland"="orange",
+               "massachusetts"="orange",
+               "minnesota"="orange",
+               "new jersey"="orange",
+               "north dakota"="yellow",
+               "rhode island"="orange",
+               "vermont"="orange",
+               "wisconsin"="orange",
+               "illinois"="blue",
+               "indiana"="blue",
+               "michigan"="blue",
+               "new york"="blue",
+               "ohio"="blue",
+               "pennsylvania"="blue",
+               "iowa"="yellow",
+               "kansas"="yellow",
+               "maine"="yellow",
+               "nebraska"="yellow",
+               "south dakota"="yellow",
+               "west virginia"="yellow")
+
+
+
+map_data$color=ifelse(map_data$region %in%
+                        names(state_colors),
+                      state_colors[map_data$region], NA)
+
+map_data$Cluster=ifelse(map_data$color=="red", "Cluster 1",
+                        ifelse(map_data$color=="green","Cluster 2",
+                               ifelse(map_data$color=="yellow", "Cluster 3",
+                                      ifelse(map_data$color=="orange","Cluster 4",
+                                             ifelse(map_data$color=="blue", "Cluster 5",
+                                                    ifelse(map_data$color=="cyan","Cluster 6",NA))))))
+
+
+custom_colors=c("Cluster 1"="red", "Cluster 2"="green", "Cluster 3"="yellow", "Cluster 4"="orange", "Cluster 5"="blue", "Cluster 6"="cyan")
+
+
+ggplot(map_data,aes(x=long,y=lat,group=group, fill=Cluster))+geom_polygon(color="black", size=0.25)+theme_void()+scale_fill_manual(values = custom_colors, na.value="white")
+```
+
+## IN CONCLUSION
+
+-   The analysis of the "Fatalities" dataset, sourced from the US
+    Department of Transportation's Fatal Accident Reporting System, was
+    conducted to understand fatal car crashes.
+
+-   K-means clustering was utilized as an effective method for grouping
+    data to extract insights.
+
+-   The analysis process involved data pre-processing, determining the
+    optimal number of clusters, and implementing the K-means clustering
+    model.
+
+-   Six clusters were generated to elucidate trends related to
+    alcohol-related car crashes, considering factors such as alcohol
+    consumption, religion, and beer tax.
+
+## --
+
+-   The clusters helped to create subregions within the United States,
+    each exhibiting distinct characteristics and providing insights into
+    alcohol handling and its impacts.
+
+-   Insights derived from the analysis can aid in identifying potential
+    areas for targeted interventions regarding alcohol-related issues.
+
+-   Acknowledgement of the subjectivity involved in selecting the
+    appropriate number of clusters, with acknowledgment of potential
+    variability in results and accuracy.
+
+## --
+
+-   The decision-making process for determining the optimal number of
+    clusters was facilitated by methods such as the Elbow method,
+    Silhouette method but decision became easier after observing the Gap
+    Statistic.

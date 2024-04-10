@@ -1,5 +1,5 @@
 ---
-title: "Using K-Means Clustering to determine groupings of fatal car crashes"
+title: "Using K-Means Clustering to Determine Groupings of Fatal Car Crashes"
 authors:
   - name: Kyle Knuth
   - name: Siva Gopavarapu
@@ -21,6 +21,8 @@ editor:
   markdown: 
     wrap: 72
 ---
+
+[Slides](k-means clustering slides.html)
 
 ## Introduction
 
@@ -298,7 +300,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|-----------------|-----------------|--------------------------------------|
+|------------|------------|------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -390,11 +392,28 @@ and there does not appear to be any.
 print(c(sum(is.na(df)),sum(is.null(df))))
 ```
 
-As shown in the boxplot below there are some outliers that need to be
-removed in our dataset.
+The five graphs below show a boxplot of each variable of interest. As
+seen below there are some outliers that need to be removed so we can
+cluster our data effectively.
 
 ```{r}
-boxplot(df)
+boxplot(df$spirits, horizontal = TRUE, xlab="Count", ylab="Spirits Consumed")
+```
+
+```{r}
+boxplot(df$beertax, horizontal = TRUE, xlab="Count", ylab="Beertax")
+```
+
+```{r}
+boxplot(df$baptist, horizontal = TRUE, xlab="Count", ylab="Baptist")
+```
+
+```{r}
+boxplot(df$mormon, horizontal = TRUE, xlab="Count", ylab="Mormon")
+```
+
+```{r}
+boxplot(df$afatal, horizontal = TRUE, xlab="Count", ylab="Fatal Car Crashes (Alcohol)")
 ```
 
 Next, we first check if there are any outliers in our data and remove
