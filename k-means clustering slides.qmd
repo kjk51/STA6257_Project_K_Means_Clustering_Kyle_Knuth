@@ -250,8 +250,6 @@ df=Fatalities
 df3=Fatalities
 ```
 
-## 
-
 ## Dataset
 
 ::: panel-tabset
@@ -266,7 +264,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------|------------|------------------------------------------------|
+|---------------|---------------|-------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -402,22 +400,67 @@ describe(df)
 ```{r}
 describe(df)
 ```
-:::
 
 ## Boxplot
 
-As shown in the boxplot below there are some outliers that need to be
-removed in our dataset
+The five graphs below show a boxplot of each variable of interest. As
+seen below there are some outliers that need to be removed so we can
+cluster our data effectively.
+
+::: panel-tabset
+**Spirits**
 
 ``` r
-boxplot(df)
+boxplot(df$spirits, horizontal = TRUE, xlab="Count", ylab="Spirits Consumed")
 ```
 
 ```{r}
-boxplot(df)
+boxplot(df$spirits, horizontal = TRUE, xlab="Count", ylab="Spirits Consumed")
+```
+
+**Beertax**
+:::
+
+``` r
+boxplot(df$beertax, horizontal = TRUE, xlab="Count", ylab="Beertax")
+```
+
+```{r}
+boxplot(df$beertax, horizontal = TRUE, xlab="Count", ylab="Beertax")
+```
+
+**Baptist**
+
+``` r
+boxplot(df$baptist, horizontal = TRUE, xlab="Count", ylab="Baptist")
+```
+
+```{r}
+boxplot(df$baptist, horizontal = TRUE, xlab="Count", ylab="Baptist")
+```
+
+**Mormon**
+
+``` r
+boxplot(df$mormon, horizontal = TRUE, xlab="Count", ylab="Mormon")
+```
+
+```{r}
+boxplot(df$mormon, horizontal = TRUE, xlab="Count", ylab="Mormon")
+```
+
+**Afatal**
+
+``` r
+boxplot(df$afatal, horizontal = TRUE, xlab="Count", ylab="Fatal Car Crashes (Alcohol)")
+```
+
+```{r}
+boxplot(df$afatal, horizontal = TRUE, xlab="Count", ylab="Fatal Car Crashes (Alcohol)")
 ```
 
 ## Outlier Detection
+:::
 
 First, check if there are any outliers in our data and remove them
 before scaling the data. We need to remove the outliers since it can
