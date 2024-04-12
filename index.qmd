@@ -22,7 +22,7 @@ editor:
     wrap: 72
 ---
 
-[Slides](k-means clustering slides.html)
+[Slides](k-means%20clustering%20slides.html)
 
 ## Introduction
 
@@ -300,7 +300,7 @@ from the US Bureau of Labor Statistics. The data includes all the states
 except Alaska and Hawaii.
 
 | Variable     | Variable Type | Description                                                                                            |
-|----------------|----------------|----------------------------------------|
+|--------------|---------------|--------------------------------------------------------------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
