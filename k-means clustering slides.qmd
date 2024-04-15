@@ -33,14 +33,10 @@ editor:
 -   Methods for optimal cluster number: Elbow, Silhouette, and Gap
     Statistic. 
 
--   Preprocessing techniques like Canopy algorithm for large datasets. 
-
 -   Cluster quality assessed using Calinski-Harabasz criterion. 
 
 -   K-means process: iterative centroid recalculation for cluster
     convergence. 
-
--   Efficiency improved by using PCA for initial centroid estimation. 
 
     ![](1_rw8IUza1dbffBhiA4i0GNQ.png){width="519"}
 
@@ -95,15 +91,11 @@ editor:
 
 -   Requires prior knowledge of the number of clusters. 
 
--   Difficulty handling diverse data types. 
-
 -   Choosing incorrect number of clusters can introduce variability. 
 
 <!-- -->
 
 -   Issues arise with complex data and scalability. 
-
--   Requires careful preprocessing and adequate sample size. 
 
 ## Methods
 
