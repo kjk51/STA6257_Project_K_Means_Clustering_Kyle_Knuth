@@ -250,6 +250,8 @@ df=Fatalities
 df3=Fatalities
 ```
 
+## 
+
 ## Dataset
 
 ::: panel-tabset
@@ -264,7 +266,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|------------|------------|------------------------------------------------|
+|--------------|--------------|--------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -307,11 +309,9 @@ head(df)
 ```
 
 ```{r}
-library(AER) 
-
-data("Fatalities") 
-
-df=Fatalities 
+library(AER)
+data("Fatalities")
+df=Fatalities
 head(df)
 ```
 
@@ -368,7 +368,10 @@ df=df[c(3,7,8,9,26)]
 Convert the percentage of Baptists and Mormons to a count
 
 ``` r
-df$baptist=df$baptist/100 df$mormon=df$mormon/100 df$baptist=df$baptist*df$pop df$mormon=df$mormon*df$pop
+df$baptist=df$baptist/100
+df$mormon=df$mormon/100
+df$baptist=df$baptist*df$pop
+df$mormon=df$mormon*df$pop
 ```
 
 ```{r}
@@ -400,6 +403,7 @@ describe(df)
 ```{r}
 describe(df)
 ```
+:::
 
 ## Boxplot
 
@@ -407,7 +411,6 @@ The five graphs below show a boxplot of each variable of interest. As
 seen below there are some outliers that need to be removed so we can
 cluster our data effectively.
 
-::: panel-tabset
 **Spirits**
 
 ``` r
@@ -419,7 +422,6 @@ boxplot(df$spirits, horizontal = TRUE, xlab="Count", ylab="Spirits Consumed")
 ```
 
 **Beertax**
-:::
 
 ``` r
 boxplot(df$beertax, horizontal = TRUE, xlab="Count", ylab="Beertax")
@@ -460,7 +462,6 @@ boxplot(df$afatal, horizontal = TRUE, xlab="Count", ylab="Fatal Car Crashes (Alc
 ```
 
 ## Outlier Detection
-:::
 
 First, check if there are any outliers in our data and remove them
 before scaling the data. We need to remove the outliers since it can
@@ -469,49 +470,72 @@ data needs to be scaled since k-means clustering is reliant on Euclidean
 distance and a large difference in values can adversly affect it.
 
 ``` {.R code-line-numbers="1-5"}
-detection=function(x) {   q1=quantile(x,probs=.25)    q3=quantile(x,probs=.75)    iqr=q3-q1    x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}  elimination= function(df,cols=names(df)) {   for(col in cols) {      df=df[!detection(df[[col]]),]}   return(df)}  column_names=c('spirits','baptist','mormon', 'beertax', 'afatal') df2=df cleaned_df_2=elimination(df2,column_names) cleaned_df2=as.data.frame(scale(cleaned_df_2)) boxplot(cleaned_df2)
-```
-
-```{r}
 detection=function(x) {
-  q1=quantile(x,probs=.25) 
-  q3=quantile(x,probs=.75) 
-  iqr=q3-q1 
-  x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
-
+q1=quantile(x,probs=.25)
+q3=quantile(x,probs=.75)
+iqr=q3-q1
+x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
 elimination= function(df,cols=names(df)) {
-  for(col in cols) { 
-    df=df[!detection(df[[col]]),]}
-  return(df)} 
+for(col in cols) {
+  df=df[!detection(df[[col]]),]}
+  return(df)}
 column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
 df2=df
 cleaned_df_2=elimination(df2,column_names)
 cleaned_df2=as.data.frame(scale(cleaned_df_2))
 boxplot(cleaned_df2)
+```
+
+```{r}
+detection=function(x) {
+q1=quantile(x,probs=.25)
+q3=quantile(x,probs=.75)
+iqr=q3-q1
+x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+elimination= function(df,cols=names(df)) {
+for(col in cols) {
+  df=df[!detection(df[[col]]),]}
+  return(df)}
+column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
+df2=df
+cleaned_df_2=elimination(df2,column_names)
+cleaned_df2=as.data.frame(scale(cleaned_df_2))
 ```
 
 ## Outlier Elimination
 
 ``` {.R code-line-numbers="7-14"}
-detection=function(x) {   q1=quantile(x,probs=.25)    q3=quantile(x,probs=.75)    iqr=q3-q1    x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}  elimination= function(df,cols=names(df)) {   for(col in cols) {      df=df[!detection(df[[col]]),]}   return(df)}  column_names=c('spirits','baptist','mormon', 'beertax', 'afatal') df2=df cleaned_df_2=elimination(df2,column_names) cleaned_df2=as.data.frame(scale(cleaned_df_2)) boxplot(cleaned_df2)
-```
-
-```{r}
 detection=function(x) {
-  q1=quantile(x,probs=.25) 
-  q3=quantile(x,probs=.75) 
-  iqr=q3-q1 
-  x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+q1=quantile(x,probs=.25)
+q3=quantile(x,probs=.75)
+iqr=q3-q1
+x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
 
 elimination= function(df,cols=names(df)) {
-  for(col in cols) { 
-    df=df[!detection(df[[col]]),]}
-  return(df)} 
+for(col in cols) {
+  df=df[!detection(df[[col]]),]}
+  return(df)}
 column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
 df2=df
 cleaned_df_2=elimination(df2,column_names)
 cleaned_df2=as.data.frame(scale(cleaned_df_2))
 boxplot(cleaned_df2)
+```
+
+```{r}
+detection=function(x) {
+q1=quantile(x,probs=.25)
+q3=quantile(x,probs=.75)
+iqr=q3-q1
+x>q3+(iqr*1.5)|x<q1-(iqr*1.5)}
+elimination= function(df,cols=names(df)) {
+for(col in cols) {
+  df=df[!detection(df[[col]]),]}
+  return(df)}
+column_names=c('spirits','baptist','mormon', 'beertax', 'afatal')
+df2=df
+cleaned_df_2=elimination(df2,column_names)
+cleaned_df2=as.data.frame(scale(cleaned_df_2))
 ```
 
 ## Boxplot
@@ -570,13 +594,15 @@ fviz_nbclust(cleaned_df2, kmeans, method = "gap_stat")
 ```
 :::
 
-## Modeling with K-means Clustering
+## Modelling with K-means Clustering
 
 Building the model using our variables of interest with the selected
 number of clusters as 6
 
 ``` r
-custom_colors=c("red","green", "yellow", "orange", "blue", "cyan") km <- kmeans(cleaned_df2, centers= 6, nstart = 25) fviz_cluster(km,data=cleaned_df2, geom = "point")+scale_color_manual(values = custom_colors)+scale_fill_manual(values = custom_colors)
+custom_colors=c("red","green", "yellow", "orange", "blue", "cyan")
+km <- kmeans(cleaned_df2, centers= 6, nstart = 25)
+fviz_cluster(km,data=cleaned_df2, geom = "point")+scale_color_manual(values = custom_colors)+scale_fill_manual(values = custom_colors)
 ```
 
 ```{r}
