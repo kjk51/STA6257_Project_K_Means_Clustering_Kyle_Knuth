@@ -250,8 +250,6 @@ df=Fatalities
 df3=Fatalities
 ```
 
-## 
-
 ## Dataset
 
 ::: panel-tabset
@@ -266,7 +264,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|--------------|--------------|--------------------------------------------|
+|----------------|----------------|----------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -634,62 +632,68 @@ print(clustertable2)
 ```
 :::
 
-## 
+we can consider alcohol consumption , beer tax and fatalities from table
+1
 
-## Cluster Analysis(average)
+we consider baptist and mormon from table 2 as second table has
+standarized values.
 
--   **Cluster 1**: This cluster is characterized by an average
-    consumption of 1.47 alcoholic drinks per person, with 323
-    alcohol-related car crashes on average. The average beer tax is
-    relatively high at 93 cents. It predominantly comprises Baptists
-    rather than Mormons.
+## Cluster Analysis (by average)
 
--   **Cluster 2**: Cluster 2 exhibits a slightly higher average
-    consumption of alcoholic drinks per person (1.72) compared to
-    Cluster 1, with a lower average of 117 alcohol-related car crashes.
-    The average beer tax is notably lower at 23.7 cents. This cluster
-    consists of somewhat more Mormons than Baptists.
+**Cluster 1**: This cluster is characterized by an average consumption
+of 1.47 alcoholic drinks per person, with 323 alcohol-related car
+crashes on average. The average beer tax is relatively high at 0.930. It
+predominantly comprises Baptists rather than Mormons.
 
--   **Cluster 3**: In Cluster 3, the average consumption of alcoholic
-    drinks per person is 1.39, with 113 alcohol-related car crashes on
-    average. The average beer tax falls in between the previous clusters
-    at 50.1 cents. This cluster has similar proportions of Baptists and
-    Mormons.
+**Cluster 2**: Cluster 2 exhibits a slightly higher average consumption
+of alcoholic drinks per person (1.72) compared to Cluster 1, with a
+lower average of 117 alcohol-related car crashes. The average beer tax
+is notably lower at 0.237. This cluster consists of somewhat more
+Mormons than Baptists.
 
-## Cluster Analysis(average)
+**Cluster 3**: In Cluster 3, the average consumption of alcoholic drinks
+per person is 1.39, with 113 alcohol-related car crashes on average. The
+average beer tax falls in between the previous clusters at 0.501. This
+cluster has similar proportions of Baptists and Mormons.
 
--   **Cluster 4**: This cluster demonstrates the highest average
-    consumption of alcoholic drinks per person (2.18) among the
-    clusters, with 142 alcohol-related car crashes on average. The
-    average beer tax is similar to Cluster 2 at 24.5 cents. Similar to
-    Cluster 3, it contains similar amounts of Baptists and Mormons.
+## Cluster Analysis (by average)
 
--   **Cluster 5**: Cluster 5 has an average consumption of 1.6 alcoholic
-    drinks per person, with 473 alcohol-related car crashes on average.
-    The average beer tax is 27 cents. This cluster contains more Mormons
-    than Baptists.
+**Cluster 4**: This cluster demonstrates the highest average consumption
+of alcoholic drinks per person (2.18) among the clusters, with 142
+alcohol-related car crashes on average. The average beer tax is similar
+to Cluster 2 at 0.245 . Similar to Cluster 3, it contains similar
+amounts of Baptists and Mormons.
 
--   **Cluster 6**: Finally, Cluster 6 displays the lowest average
-    consumption of alcoholic drinks per person (1.24), with 295
-    alcohol-related car crashes on average. The average beer tax is 35
-    cents. Significantly, this cluster contains more Baptists than
-    Mormons.
+**Cluster 5**: Cluster 5 has an average consumption of 1.6 alcoholic
+drinks per person, with 473 alcohol-related car crashes on average. The
+average beer tax is 0.270. This cluster contains more Mormons than
+Baptists.
 
-## Cluster analysis (by variable)
+**Cluster 6**: Finally, Cluster 6 displays the lowest average
+consumption of alcoholic drinks per person (1.24), with 295
+alcohol-related car crashes on average. The average beer tax is 0.350.
+Significantly, this cluster contains more Baptists than Mormons.
 
-In this first chart it is shown that cluster 5 had the highest number of
-car crash fatalities related to alcohol while clusters 2 and 3 had the
-lowest amount. Cluster 1 had the second highest amount.
+## Cluster analysis (by variable) {.smaller}
+
+::: panel-tabset
+#### Car Crash Fatalities
+
+In this chart it is shown that cluster 5 had the highest number of car
+crash fatalities related to alcoholfollowed by cluster 1 while clusters
+2 and 3 had the lowest amount.
 
 ```{r}
-y=clustertable2$cluster
-x=clustertable2$afatal
+y=clustertable$cluster
+x=clustertable$afatal
 data=as.data.frame(x)
 data$y=y
 ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Afatal")
 ```
 
-In this next chart, cluster 4 had the highest number of alcohol consumed
+#### Alcohol consumption
+
+In this chart, cluster 4 had the highest number of alcohol consumed
 while cluster 6 had the lowest amount. The second highest was cluster 2.
 
 ```{r}
@@ -697,12 +701,29 @@ y=clustertable2$cluster
 x=clustertable2$spirits
 data=as.data.frame(x)
 data$y=y
-ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Spirits")
+ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Spirits") 
 ```
 
-## Cluster analysis (by variable)
+#### Beer tax
 
-As shown below, clusters 1 and 6 had the highest population of Baptists
+Cluster 1 had the highest beertax while clusters 2 and 4 had the lowest
+beertax.
+
+```{r}
+y=clustertable2$cluster
+x=clustertable2$beertax
+data=as.data.frame(x)
+data$y=y
+ggplot(data,aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Beertax")
+```
+:::
+
+## Cluster analysis (by variable) {.smaller}
+
+::: panel-tabset
+#### Baptist
+
+in this chart, clusters 1 and 6 had the highest population of Baptists
 while clusters 3 and 4 had the lowest amount.
 
 ```{r}
@@ -712,6 +733,8 @@ data=as.data.frame(x)
 data$y=y
 ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Baptist")
 ```
+
+#### Mormon
 
 In this chart, cluster 2 had the highest population of Mormons and
 clusters 3 and 4 had the lowest population.
@@ -723,26 +746,12 @@ data=as.data.frame(x)
 data$y=y
 ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Mormon")
 ```
+:::
 
-## Cluster analysis (by variable)
-
-Cluster 1 had the highest beertax while clusters 2 and 4 had the lowest
-beertax.
-
-```{r}
-y=clustertable2$cluster
-x=clustertable2$beertax
-data=as.data.frame(x)
-data$y=y
-ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Beertax")
-```
-
-## Cluster analysis (state)
+## Cluster analysis (state level) {.smaller}
 
 The below graphs show the same information as the bar charts but at the
-state level. We created a subset of the original data that now has the
-clusters from our k-means clustering analyis to make inferences. This is
-to highlight which states belong to which cluster.
+state level.
 
 ::: panel-tabset
 #### Car Crash Fatalities
@@ -756,10 +765,10 @@ custom_colors=c("red", "green", "yellow", "orange", "blue", "cyan", "purple")
 ggplot(subsetdf, aes(x=state, afatal, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors) 
 ```
 
-#### Mormon
+#### Alcohol consumption
 
 ```{r}
-ggplot(subsetdf, aes(x=state, mormon, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+ggplot(subsetdf, aes(x=state, spirits, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
 
 #### Beer Tax
@@ -769,7 +778,7 @@ ggplot(subsetdf, aes(x=state, beertax, color=cluster)) + geom_point()+ scale_col
 ```
 :::
 
-## Cluster analysis (state)
+## Cluster analysis (state level)
 
 ::: panel-tabset
 #### Baptist
@@ -778,16 +787,14 @@ ggplot(subsetdf, aes(x=state, beertax, color=cluster)) + geom_point()+ scale_col
 ggplot(subsetdf, aes(x=state, baptist, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
 
-#### Alcohol consumption
+#### Mormon
 
 ```{r}
-ggplot(subsetdf, aes(x=state, spirits, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
+ggplot(subsetdf, aes(x=state, mormon, color=cluster)) + geom_point()+ scale_color_manual(values = custom_colors)
 ```
 :::
 
-## State map based on clusters
-
-Below is the map in which states are divided based on clusters
+## State map based on clusters {.smaller}
 
 ```{r}
 map_data=map_data("state")
@@ -848,6 +855,21 @@ custom_colors=c("Cluster 1"="red", "Cluster 2"="green", "Cluster 3"="yellow", "C
 
 ggplot(map_data,aes(x=long,y=lat,group=group, fill=Cluster))+geom_polygon(color="black", size=0.25)+theme_void()+scale_fill_manual(values = custom_colors, na.value="white")
 ```
+
+From the above map we can see that the states are divided based on
+clusters.
+
+we can observe that southern states belongs to cluster 1, where as
+western states are outliers hence there are no colour for the state, so
+we can say that those states doesnot belong to any clusters. cluster 2
+also belongs to western part of usa.
+
+most of the central part states belong to cluster 3.
+
+cluster 6 belongs to central-east part of usa.
+
+Cluster 4 is primarily in the Northeast of the U.S. Cluster 5 is in the
+Great Lakes and MidEast area.
 
 ## CONCLUSION
 
