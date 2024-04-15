@@ -264,7 +264,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|--------------|---------------|--------------------------------------------------------------------------------------------------------|
+|------------|------------|------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -823,26 +823,30 @@ custom_colors=c("Cluster 1"="red", "Cluster 2"="green", "Cluster 3"="yellow", "C
 ggplot(map_data,aes(x=long,y=lat,group=group, fill=Cluster))+geom_polygon(color="black", size=0.25)+theme_void()+scale_fill_manual(values = custom_colors, na.value="white")
 ```
 
-## IN CONCLUSION
+## CONCLUSION
+
+-   The K-means clustering algorithm is known for its simplicity and is
+    applied in clustering datasets from different domains.
 
 -   The analysis of the "Fatalities" dataset, sourced from the US
     Department of Transportation's Fatal Accident Reporting System, was
     conducted to understand fatal car crashes.
 
 -   K-means clustering was utilized as an effective method for grouping
-    data to extract insights.
+    data to extract insights and gives more weight to the bigger
+    clusters
 
 -   The analysis process involved data pre-processing, determining the
     optimal number of clusters, and implementing the K-means clustering
     model.
 
--   Six clusters were generated to elucidate trends related to
+## --
+
+-   Six clusters were generated to interpret the trends related to
     alcohol-related car crashes, considering factors such as alcohol
     consumption, religion, and beer tax.
 
-## --
-
--   The clusters helped to create subregions within the United States,
+-   The clusters helped to create sub-regions within the United States,
     each exhibiting distinct characteristics and providing insights into
     alcohol handling and its impacts.
 
@@ -859,3 +863,8 @@ ggplot(map_data,aes(x=long,y=lat,group=group, fill=Cluster))+geom_polygon(color=
     clusters was facilitated by methods such as the Elbow method,
     Silhouette method but decision became easier after observing the Gap
     Statistic.
+-   K-means clustering is essential in the analysis of the "Fatalities"
+    dataset as it facilitates the extraction of meaningful insights,
+    aids in decision-making processes, and contributes to a deeper
+    understanding of the factors contributing to fatal car crashes and
+    their implications.
