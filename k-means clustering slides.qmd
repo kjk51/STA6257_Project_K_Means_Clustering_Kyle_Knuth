@@ -264,7 +264,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|----------------|----------------|----------------------------------------|
+|--------------|---------------|--------------------------------------------------------------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
