@@ -256,7 +256,7 @@ and Hawaii)
 documentation*]{.underline}](https://search.r-project.org/CRAN/refmans/AER/html/Fatalities.html){style="color: blue;"}
 
 | Variable     | Variable Type | Description                                                                                            |
-|--------------|---------------|--------------------------------------------------------------------------------------------------------|
+|------------|------------|------------------------------------------------|
 | state        | Categorical   | A categorical variable that represents the state                                                       |
 | year         | Categorical   | The year is indicated by the categorical factor                                                        |
 | spirits      | Continuous    | A numerical value indicating the amount of spirits consumed.                                           |
@@ -672,7 +672,7 @@ Significantly, this cluster contains more Baptists than Mormons.
 #### Car Crash Fatalities
 
 In this chart it is shown that cluster 5 had the highest number of car
-crash fatalities related to alcoholfollowed by cluster 1 while clusters
+crash fatalities related to alcohol followed by cluster 1 while clusters
 2 and 3 had the lowest amount.
 
 ```{r}
@@ -689,11 +689,14 @@ In this chart, cluster 4 had the highest number of alcohol consumed
 while cluster 6 had the lowest amount. The second highest was cluster 2.
 
 ```{r}
-y=clustertable2$cluster
-x=clustertable2$spirits
+y=clustertable$cluster
+x=clustertable$spirits
 data=as.data.frame(x)
 data$y=y
-ggplot(data, aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Spirits") 
+
+ggplot(data, aes(x = y, y = x)) +
+  geom_bar(stat = "identity", fill = custom_colors) + 
+  labs(x = "Cluster", y = "Spirits")
 ```
 
 #### Beer tax
@@ -702,11 +705,14 @@ Cluster 1 had the highest beertax while clusters 2 and 4 had the lowest
 beertax.
 
 ```{r}
-y=clustertable2$cluster
-x=clustertable2$beertax
+y=clustertable$cluster
+x=clustertable$beertax
 data=as.data.frame(x)
 data$y=y
-ggplot(data,aes(x = y, y = x)) +   geom_bar(stat = "identity", fill = custom_colors) +    labs(x = "Cluster", y = "Beertax")
+
+ggplot(data, aes(x = y, y = x)) +
+  geom_bar(stat = "identity", fill = custom_colors) + 
+  labs(x = "Cluster", y = "Beertax")
 ```
 :::
 
